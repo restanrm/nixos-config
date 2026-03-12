@@ -17,6 +17,9 @@
   networking.hostName = "laptop-ara";
   networking.networkmanager.enable = true;
 
+  # Correctif pour xdg.portal + Home Manager
+  environment.pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" ];
+
   # Localization
   time.timeZone = "Europe/Paris";
   i18n.defaultLocale = "fr_FR.UTF-8"; # Optionnel: passage en français par défaut

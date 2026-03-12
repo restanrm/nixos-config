@@ -3,19 +3,10 @@
   home.packages = with pkgs; [
     # Desktop
     htop
-    rofi
-    hyprland
-    hyprlock
-    slurp
-    grim
     pipewire
-    mako
-    playerctl
-    brightnessctl
     pavucontrol
     qpwgraph
     firefox
-    waybar
     chromium
 
     # CLI Tools
@@ -67,6 +58,5 @@
 
   programs.chromium.enable = true;
   programs.rofi.enable = true;
-
   
 }
