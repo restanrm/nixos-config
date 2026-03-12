@@ -16,6 +16,10 @@
          "$mod,r,movefocus,r"
          "$mod,s,movefocus,u"
          "$mod,t,movefocus,d"
+         "$mod SHIFT,c,swapwindow,l"
+         "$mod SHIFT,r,swapwindow,r"
+         "$mod SHIFT,s,swapwindow,u"
+         "$mod SHIFT,t,swapwindow,d"
          "$mod SHIFT, code:20 ,togglespecialworkspace,magic"
          "$mod, code:20 ,movetoworkspace,special:magic"
          
