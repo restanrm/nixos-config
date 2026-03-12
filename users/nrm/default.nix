@@ -15,6 +15,7 @@
     ../../modules/home/shell
     ../../modules/home/git
     ../../modules/home/nvim
+    ../../modules/home/ai
   ];
 
 }
