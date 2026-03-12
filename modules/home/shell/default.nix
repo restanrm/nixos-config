@@ -4,13 +4,6 @@
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
-
-    # Lancement de Hyprland automatique si on est sur tty1
-    loginExtra = ''
-      if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
-        exec Hyprland
-      fi
-    '';
   };
 
   # Activation du plugin Oh My Zsh (optionnel mais recommandé)

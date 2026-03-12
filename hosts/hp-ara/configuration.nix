@@ -62,6 +62,7 @@
   ];
 
   programs.zsh.enable = true;
+  programs.dconf.enable = true;
 
   # Security & Management
   nixpkgs.config.allowUnfree = true;
