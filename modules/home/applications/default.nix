@@ -42,8 +42,6 @@
     age
     yq
     jq
-    git
-    jujutsu
     httpie
     zsh
 
