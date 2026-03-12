@@ -18,7 +18,6 @@
     chromium
 
     # CLI Tools
-    neovim
     wget
     curl
     vault
