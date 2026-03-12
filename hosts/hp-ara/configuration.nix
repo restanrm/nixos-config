@@ -6,6 +6,7 @@
     ../../modules/system/podman.nix
     ../../modules/system/fonts.nix
     ../../modules/system/audio.nix
+    ../../modules/system/fingerprint.nix
   ];
 
   # Bootloader
