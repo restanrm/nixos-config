@@ -18,6 +18,10 @@
          "$mod,t,movefocus,d"
          "$mod SHIFT, code:20 ,togglespecialworkspace,magic"
          "$mod, code:20 ,movetoworkspace,special:magic"
+         
+         # Verrouillage manuel
+         "$mod CTRL, L, exec, loginctl lock-session"
+         ",XF86ScreenLock, exec, loginctl lock-session"
        ]
        ++(
          builtins.concatLists (builtins.genList( i:

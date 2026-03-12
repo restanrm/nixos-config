@@ -21,9 +21,11 @@
     ./binds.nix
     ./env.nix
     ./exec-once.nix
+    ./hyprlock.nix
+    ./hypridle.nix
   ];
 
-  programs.hyprlock.enable = true;
+  # programs.hyprlock.enable = true; # Déplacé dans hyprlock.nix
   programs.rofi.enable = true;
   programs.chromium.enable = true;
   programs.firefox.enable = true;
