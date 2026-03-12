@@ -1,9 +1,8 @@
-{...}:
-{
+{...}: {
   wayland.windowManager.hyprland.settings = {
     animations = {
       enabled = true;
-      
+
       bezier = [
         "overshot, 0.05, 0.9, 0.1, 1.05"
         "smoothOut, 0.5, 0, 0.99, 0.99"
@@ -19,7 +18,6 @@
         "fadeDim, 1,5 smoothIn"
         "workspaces, 1, 6, default"
       ];
-
     };
   };
 }

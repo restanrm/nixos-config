@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [
     ./hardware-configuration.nix
     ../../modules/system/podman.nix
@@ -18,7 +21,7 @@
   networking.networkmanager.enable = true;
 
   # Correctif pour xdg.portal + Home Manager
-  environment.pathsToLink = [ "/share/applications" "/share/xdg-desktop-portal" ];
+  environment.pathsToLink = ["/share/applications" "/share/xdg-desktop-portal"];
 
   # Localization
   time.timeZone = "Europe/Paris";
@@ -45,7 +48,7 @@
   # User Configuration
   users.users.nrm = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = ["wheel"];
     shell = pkgs.zsh; # Définit ZSH comme shell par défaut au niveau système
   };
 
@@ -56,7 +59,6 @@
     curl
     git
   ];
-
 
   programs.zsh.enable = true;
 

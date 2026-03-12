@@ -10,22 +10,26 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    home-manager,
+    ...
+  }: {
     # NOTE: 'nixos' is the default hostname
     nixosConfigurations.hp-ara = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs;};
-      modules = [ 
-        ./hosts/hp-ara/configuration.nix 
-	home-manager.nixosModules.home-manager
-	{
-	  home-manager.useGlobalPkgs = true;
-	  home-manager.useUserPackages = true;
-	  home-manager.users.nrm = import ./users/nrm;
-    home-manager.backupFileExtension = "hm-back";
-	}
+      modules = [
+        ./hosts/hp-ara/configuration.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.nrm = import ./users/nrm;
+          home-manager.backupFileExtension = "hm-back";
+        }
       ];
     };
   };
 }
-

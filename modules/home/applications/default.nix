@@ -1,5 +1,4 @@
-{pkgs, ...}:
-{
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # Desktop
     htop
@@ -35,18 +34,6 @@
     jq
     httpie
     zsh
-
-    # LSP
-    nixd
-
-    # Compilation
-    gcc
-    gnumake
-    pkg-config
-    automake
-    autoconf
-    libtool
-    openssl
   ];
 
   programs.zoxide = {
@@ -57,6 +44,4 @@
   };
 
   programs.chromium.enable = true;
-  programs.rofi.enable = true;
-  
 }

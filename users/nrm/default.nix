@@ -1,5 +1,4 @@
-{pkgs, ...}:
-{
+{pkgs, ...}: {
   xdg.enable = true;
 
   home.username = "nrm";
@@ -16,7 +15,6 @@
     ../../modules/home/git
     ../../modules/home/nvim
     ../../modules/home/ai
+    ../../modules/home/development
   ];
-
 }
-
