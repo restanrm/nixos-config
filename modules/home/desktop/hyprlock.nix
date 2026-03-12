@@ -9,6 +9,14 @@
         no_fade_in = false;
       };
 
+      # Support natif de l'authentification par empreinte
+      # Cela permet de mieux gérer le choix entre mot de passe et empreinte
+      auth = {
+        fingerprint = {
+          enabled = true;
+        };
+      };
+
       background = [
         {
           path = "screenshot"; # Utilise une capture d'écran floutée
