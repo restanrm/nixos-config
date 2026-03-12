@@ -51,6 +51,7 @@
       monitor = ",preferred,auto,1";
       "$mod" = "SUPER";
       "$terminal" = "alacritty";
+      "$menu" = "rofi -show drun";
     };
   };
 
