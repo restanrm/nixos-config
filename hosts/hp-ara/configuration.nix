@@ -53,6 +53,9 @@
     git
   ];
 
+
+  programs.zsh.enable = true;
+
   # Security & Management
   nixpkgs.config.allowUnfree = true;
   system.autoUpgrade = {
