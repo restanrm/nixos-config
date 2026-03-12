@@ -4,8 +4,7 @@
       [
         "$mod, code:36, exec, $terminal"
         "$mod SHIFT, A, killactive,"
-        "$mod, M, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
-        "$mod, E, exec, $fileManager"
+        "$mod, E, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
         "$mod SHIFT,space,togglefloating,"
         "$mod,D,exec,$menu"
         "$mod,P,pseudo,"
