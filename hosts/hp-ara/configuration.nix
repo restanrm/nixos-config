@@ -1,0 +1,64 @@
+{ config, lib, pkgs, ... }:
+
+{
+  imports = [
+    ./hardware-configuration.nix
+    ../../modules/system/podman.nix
+    ../../modules/system/fonts.nix
+    ../../modules/system/audio.nix
+  ];
+
+  # Bootloader
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  # Networking
+  networking.hostName = "laptop-ara";
+  networking.networkmanager.enable = true;
+
+  # Localization
+  time.timeZone = "Europe/Paris";
+  i18n.defaultLocale = "fr_FR.UTF-8"; # Optionnel: passage en français par défaut
+
+  # Hardware
+  hardware.bluetooth.enable = true;
+  hardware.graphics.enable = true;
+  console.useXkbConfig = true;
+
+  # Nix Settings
+  nix.settings.experimental-features = ["flakes nix-command"];
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 15d";
+  };
+
+  # X11 / Keymap
+  services.xserver.xkb.layout = "fr";
+  services.xserver.xkb.variant = "bepo";
+  services.printing.enable = true;
+
+  # User Configuration
+  users.users.nrm = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" ];
+    shell = pkgs.zsh; # Définit ZSH comme shell par défaut au niveau système
+  };
+
+  # System Packages (Minimal)
+  environment.systemPackages = with pkgs; [
+    neovim # Gardé en système pour les réparations d'urgence
+    wget
+    curl
+    git
+  ];
+
+  # Security & Management
+  nixpkgs.config.allowUnfree = true;
+  system.autoUpgrade = {
+    enable = true;
+    allowReboot = false;
+  };
+
+  system.stateVersion = "25.11";
+}
