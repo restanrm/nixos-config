@@ -18,11 +18,14 @@
   ];
 
   imports = [
+    ./animations.nix
     ./binds.nix
     ./env.nix
     ./exec-once.nix
     ./hyprlock.nix
     ./hypridle.nix
+    ./inputs.nix
+    ./windows.nix
   ];
 
   # programs.hyprlock.enable = true; # Déplacé dans hyprlock.nix
