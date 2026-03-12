@@ -1,7 +1,12 @@
-{ ... }:
+{ pkgs, ... }:
 {
+  environment.systemPackages = with pkgs; [
+    fprintd
+  ];
+
   # Activation du service de gestion des empreintes
   services.fprintd.enable = true;
+
 
   # Configuration de PAM pour autoriser l'empreinte (non bloquant)
   # Cela permet d'utiliser l'empreinte pour sudo, login, hyprlock, etc.

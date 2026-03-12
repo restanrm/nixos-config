@@ -18,7 +18,7 @@
   ];
 
   imports = [
-    ./animations.nix
+    # ./animations.nix
     ./binds.nix
     ./env.nix
     ./exec-once.nix
