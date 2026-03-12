@@ -13,6 +13,7 @@
     playerctl
     brightnessctl
     pavucontrol
+    qpwgraph
     firefox
     waybar
     chromium
