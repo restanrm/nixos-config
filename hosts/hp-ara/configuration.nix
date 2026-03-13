@@ -10,6 +10,8 @@
     ../../modules/system/fonts.nix
     ../../modules/system/audio.nix
     ../../modules/system/fingerprint.nix
+    ../../modules/system/ssh.nix
+    ../../modules/system/yubikey.nix
   ];
 
   # Bootloader
