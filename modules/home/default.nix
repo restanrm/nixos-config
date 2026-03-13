@@ -7,6 +7,7 @@
     ./alacritty.nix
     ./development.nix
     ./zsh.nix
+    ./fish.nix
     ./git.nix
     ./zoxide.nix
     ./dark-theme.nix

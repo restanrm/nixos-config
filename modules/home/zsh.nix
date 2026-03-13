@@ -7,6 +7,12 @@
     shellAliases = {
       e = "nvim";
     };
+    initContent = ''
+      eval "$(zoxide init zsh)"
+    '';
+    sessionVariables = {
+      VAULT_ADDR = "https://vault.delivery.sekoia.io";
+    };
   };
 
   # Activation du plugin Oh My Zsh (optionnel mais recommandé)

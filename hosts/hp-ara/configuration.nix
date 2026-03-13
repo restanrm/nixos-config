@@ -52,7 +52,7 @@
   users.users.nrm = {
     isNormalUser = true;
     extraGroups = ["wheel"];
-    shell = pkgs.fish; # Définit ZSH comme shell par défaut au niveau système
+    shell = pkgs.zsh; # Définit ZSH comme shell par défaut au niveau système
   };
 
   # System Packages (Minimal)
