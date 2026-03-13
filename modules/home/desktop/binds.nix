@@ -21,6 +21,8 @@
         "$mod SHIFT,t,swapwindow,d"
         "$mod SHIFT, code:20 ,togglespecialworkspace,magic"
         "$mod, code:20 ,movetoworkspace,special:magic"
+        "$mod CTRL, left, movecurrentworkspacetomonitor, l"
+        "$mod CTRL, right, movecurrentworkspacetomonitor, r"
 
         # Verrouillage manuel
         "$mod CTRL, L, exec, loginctl lock-session"
