@@ -6,7 +6,7 @@
     ./ai.nix
     ./alacritty.nix
     ./development.nix
-    ./shell.nix
+    ./zsh.nix
     ./git.nix
     ./zoxide.nix
     ./dark-theme.nix
