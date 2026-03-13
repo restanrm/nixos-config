@@ -25,7 +25,7 @@ echo "󱄅 Reconstruction de NixOS ($HOSTNAME)..."
 
 # Exécution du rebuild avec sudo
 # --flake .#hp-ara utilise le répertoire courant et le nom d'hôte spécifié
-sudo nixos-rebuild switch --flake .#$HOSTNAME
+nixos-rebuild switch --flake .#$HOSTNAME --sudo
 
 # Récupération du résultat
 if [ $? -eq 0 ]; then

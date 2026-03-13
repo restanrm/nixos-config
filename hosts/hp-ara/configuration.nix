@@ -11,6 +11,7 @@
     ../../modules/system/fingerprint.nix
     ../../modules/system/ssh.nix
     ../../modules/system/yubikey.nix
+    ../../modules/system/sekoia-io-agent.nix
   ];
 
   # Bootloader

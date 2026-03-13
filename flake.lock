@@ -36,10 +36,45 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1771848320,
+        "narHash": "sha256-0MAd+0mun3K/Ns8JATeHT1sX28faLII5hVLq0L3BdZU=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "2fc6539b481e1d2569f25f8799236694180c0993",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "sekoia-io-agent": "sekoia-io-agent"
+      }
+    },
+    "sekoia-io-agent": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1772099726,
+        "narHash": "sha256-NmkWDrOg1OOi+nIJwLTgcc97/cUgW+gPPGr/GQw+lQ8=",
+        "ref": "refs/heads/main",
+        "rev": "62b7690b208dd8f21b5b96aa783a22dd0ebbfa27",
+        "revCount": 2,
+        "type": "git",
+        "url": "ssh://git@github.com/r1chev/flake-sekoia-io-agent.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/r1chev/flake-sekoia-io-agent.git"
       }
     }
   },

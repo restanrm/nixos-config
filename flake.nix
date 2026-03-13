@@ -9,10 +9,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sekoia-io-agent.url = "git+ssh://git@github.com/r1chev/flake-sekoia-io-agent.git";
   };
   outputs = inputs @ {
     self,
     nixpkgs,
+    sekoia-io-agent,
     home-manager,
     ...
   }: {
@@ -21,7 +24,15 @@
       system = "x86_64-linux";
       specialArgs = {inherit inputs;};
       modules = [
-        ./hosts/hp-ara/configuration.nix
+        ./hosts/hp-ara
+        sekoia-io-agent.nixosModules.default
+        ({pkgs, ...}: {
+          nixpkgs.overlays = [
+            (final: prev: {
+              sekoia-io-agent = sekoia-io-agent.packages.${prev.system}.default;
+            })
+          ];
+        })
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
