@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ./hardware-configuration.nix
     ../../modules/system/podman.nix
     ../../modules/system/fonts.nix
     ../../modules/system/audio.nix

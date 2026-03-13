@@ -8,13 +8,6 @@
   # home.sessionPath = [ "~/.nix-profile/bin" ];
 
   imports = [
-    ../../modules/home/applications
-    ../../modules/home/alacritty
-    ../../modules/home/desktop
-    ../../modules/home/shell
-    ../../modules/home/git
-    ../../modules/home/nvim
-    ../../modules/home/ai
-    ../../modules/home/development
+    ../../modules/home
   ];
 }
