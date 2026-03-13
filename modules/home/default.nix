@@ -10,5 +10,6 @@
     ./git.nix
     ./zoxide.nix
     ./dark-theme.nix
+    ./openstack-rs.nix
   ];
 }
