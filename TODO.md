@@ -1,7 +1,6 @@
 # scripting, petite customization
 - [ ] fix start hyprland
-- [ ] waybar qui ne fonctionne pas.
-- [ ] customization de waybar
+- [x] waybar qui ne fonctionne pas. (Replaced by noctalia)
 - [ ] customization de zsh
 - [ ] ajout de fish (au cas ou)
 - [ ] ajout d'un nom au build pour l'identifier au démarrage

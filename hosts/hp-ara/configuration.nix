@@ -12,6 +12,7 @@
     ../../modules/system/ssh.nix
     ../../modules/system/yubikey.nix
     ../../modules/system/sekoia-io-agent.nix
+    ../../modules/system/noctalia-dependencies.nix
   ];
 
   # Bootloader

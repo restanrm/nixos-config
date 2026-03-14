@@ -1,7 +1,9 @@
 {...}: {
   imports = [
     ./applications
-    ./desktop
+    ./hyprland
+    ./noctalia.nix
+    #./niri.nix
     ./nvim
     ./ai.nix
     ./alacritty.nix

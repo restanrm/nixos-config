@@ -5,6 +5,7 @@
     pipewire
     pavucontrol
     qpwgraph
+    libnotify
 
     # CLI Tools
     wget

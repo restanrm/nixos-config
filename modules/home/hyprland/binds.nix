@@ -1,13 +1,31 @@
-{...}: {
+{...}: let
+  noctaliaBind = [
+    "$mod,D, exec, noctalia-shell ipc call launcher toggle" # launcher
+    "$mod SHIFT,Return, exec, noctalia-shell ipc call launcher toggle" # launcher
+    "$mod,M, exec,  noctalia-shell ipc call notifications toggleHistory" # notifications
+    "$mod,P, exec,  noctalia-shell ipc call launcher clipboard" # clipboard
+    "$mod ALT,P, exec, noctalia-shell ipc call settings toggle" # settings
+    "$mod CTRL,L, exec,  noctalia-shell ipc call sessionMenu lockAndSuspend" # lockscreen
+    "$mod,W,  exec,noctalia-shell ipc call wallpaper toggle" # wallpaper
+    "$mod,X,  exec, noctalia-shell ipc call sessionMenu toggle" # power menu
+    "$mod, code:42, exec,  noctalia-shell ipc call controlCenter toggle" # noctalia control center (mod + ,)
+    "$mod CTRL,R, exec,  noctalia-shell ipc call screenRecorder toggle" # screenrecorder
+    "$mod SHIFT,R, exec,  restart.noctalia" # restart noctalia shell
+  ];
+  standardBind = [
+    "$mod,D,exec,$menu"
+    "$mod,P,Clipboard History, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
+    "$mod CTRL, L, exec, loginctl lock-session"
+  ];
+in {
   wayland.windowManager.hyprland.settings = {
     bind =
-      [
+      noctaliaBind
+      ++ [
         "$mod, code:36, exec, $terminal"
         "$mod SHIFT, A, killactive,"
-        "$mod, E, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
+        "$mod SHIFT, E, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
         "$mod SHIFT,space,togglefloating,"
-        "$mod,D,exec,$menu"
-        "$mod,P,pseudo,"
         "$mod,J,layoutmsg,togglesplit"
         "$mod,F,fullscreen,1"
         "$mod,TAB,workspace,previous"
@@ -25,8 +43,6 @@
         "$mod CTRL, right, movecurrentworkspacetomonitor, r"
 
         # Verrouillage manuel
-        "$mod CTRL, L, exec, loginctl lock-session"
-        ",XF86ScreenLock, exec, loginctl lock-session"
       ]
       ++ (
         builtins.concatLists (builtins.genList (i: let
