@@ -12,6 +12,8 @@
 - [x] ajouter kubeconfig
 - [ ] ajouter clefs SSH privée et kubeconfigs 
 - [ ] secrets openstack a mettre dans le repo : .config/openstack/clouds.yaml
+- [ ] installation tailscale
+- [ ] Installation clef intake pour agent
 
 # gestion compte entreprise
 - [ ] ajouter tailscale

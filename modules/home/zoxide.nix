@@ -4,5 +4,8 @@
     enableZshIntegration = true;
     enableBashIntegration = true;
     enableFishIntegration = true;
+    options = [
+      "--cmd cd"
+    ];
   };
 }

@@ -18,8 +18,6 @@
 
   # programs.hyprlock.enable = true; # Déplacé dans hyprlock.nix
   programs.rofi.enable = true;
-  programs.chromium.enable = true;
-  programs.firefox.enable = true;
 
   # home.file = {
   #   ".config/hypr/hyprland.conf".source = assets/hyprland.conf;

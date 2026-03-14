@@ -5,8 +5,6 @@
     pipewire
     pavucontrol
     qpwgraph
-    firefox
-    chromium
 
     # CLI Tools
     wget
@@ -37,4 +35,5 @@
   ];
 
   programs.chromium.enable = true;
+  programs.firefox.enable = true;
 }
