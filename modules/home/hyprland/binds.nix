@@ -42,6 +42,7 @@ in {
         "$mod, code:20 ,movetoworkspace,special:magic"
         "$mod CTRL, left, movecurrentworkspacetomonitor, l"
         "$mod CTRL, right, movecurrentworkspacetomonitor, r"
+        ",Print,exec,command grim -g \"$(slurp)\" - | wl-copy"
 
         # Verrouillage manuel
       ]

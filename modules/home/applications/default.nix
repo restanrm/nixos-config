@@ -34,6 +34,8 @@
     jq
     httpie
     zsh
+
+    github-cli
   ];
 
   programs.chromium.enable = true;

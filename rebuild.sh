@@ -29,7 +29,7 @@ nixos-rebuild switch --flake .#$HOSTNAME --sudo
 
 # Récupération du résultat
 if [ $? -eq 0 ]; then
-  echo "󰄬 Configuration appliquée avec succès !"
+  notify-send "󰄬 Configuration appliquée avec succès !"
 
   # Affichage du diff entre les générations
   if command -v nvd &>/dev/null; then
