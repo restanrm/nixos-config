@@ -12,5 +12,6 @@
     ./hypridle.nix
     ./inputs.nix
     ./windows.nix
+    ./windowrules.nix
   ];
 }
