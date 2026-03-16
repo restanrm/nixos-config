@@ -5,14 +5,8 @@
   ...
 }: {
   imports = [
-    ../../modules/system/podman.nix
-    ../../modules/system/fonts.nix
-    ../../modules/system/audio.nix
-    ../../modules/system/fingerprint.nix
-    ../../modules/system/ssh.nix
-    ../../modules/system/yubikey.nix
-    ../../modules/system/sekoia-io-agent.nix
-    ../../modules/system/noctalia-dependencies.nix
+    ../../modules/system/common
+    ../../modules/system/work
   ];
 
   # Bootloader
