@@ -1,6 +1,10 @@
 {pkgs, ...}: {
   programs.fish = {
     enable = true;
+    shellAbbrs = {
+      k = "kubectl";
+      e = "nvim";
+    };
     functions = {
       vault = ''
         set --local output (command vault $argv 2>&1)

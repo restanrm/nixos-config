@@ -5,12 +5,13 @@
     "$mod,M, exec,  noctalia-shell ipc call notifications toggleHistory" # notifications
     "$mod,P, exec,  noctalia-shell ipc call launcher clipboard" # clipboard
     "$mod ALT,P, exec, noctalia-shell ipc call settings toggle" # settings
-    "$mod CTRL,L, exec,  noctalia-shell ipc call sessionMenu lockAndSuspend" # lockscreen
+    # "$mod CTRL,L, exec,  noctalia-shell ipc call sessionMenu lockAndSuspend" # lockscreen
     "$mod,W,  exec,noctalia-shell ipc call wallpaper toggle" # wallpaper
     "$mod,X,  exec, noctalia-shell ipc call sessionMenu toggle" # power menu
     "$mod, code:42, exec,  noctalia-shell ipc call controlCenter toggle" # noctalia control center (mod + ,)
     "$mod CTRL,R, exec,  noctalia-shell ipc call screenRecorder toggle" # screenrecorder
     "$mod SHIFT,R, exec,  restart.noctalia" # restart noctalia shell
+    "$mod CTRL, L, exec, loginctl lock-session"
   ];
   standardBind = [
     "$mod,D,exec,$menu"

@@ -25,6 +25,7 @@
     kubectl-neat
     kubectl-cnpg
     kubectx
+    pinniped
     k9s
     stern
     sops
