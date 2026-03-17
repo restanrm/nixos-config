@@ -16,7 +16,4 @@
     # Nix
     alejandra
   ];
-
-  programs.chromium.enable = true;
-  programs.rofi.enable = true;
 }
