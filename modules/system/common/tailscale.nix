@@ -1,6 +1,12 @@
-{...}: {
+{
+  config,
+  lib,
+  ...
+}: let
+  username = lib.head (lib.attrNames config.home-manager.users);
+in {
   services.tailscale = {
     enable = true;
-    extraUpFlags = ["--accept-routes=true" "--stateful-filtering"];
+    extraUpFlags = ["--operator=${username}" "--accept-routes=true" "--stateful-filtering"];
   };
 }
