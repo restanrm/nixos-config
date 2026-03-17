@@ -8,5 +8,6 @@
     ./ssh.nix
     ./yubikey.nix
     ./tailscale.nix
+    ./argocd.nix
   ];
 }
