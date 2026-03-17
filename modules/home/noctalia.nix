@@ -13,7 +13,7 @@
     settings = {
       bar = {
         density = "compact";
-        postition = "right";
+        position = "bottom";
         showCapsule = false;
         widgets = {
           left = [
@@ -30,6 +30,7 @@
               id = "Workspace";
               label = "none";
             }
+            {id = "plugin:todo";}
           ];
           right = [
             {id = "Tray";}

@@ -23,13 +23,13 @@
   #   ".config/hypr/hyprland.conf".source = assets/hyprland.conf;
   # };
 
-  services.mako = {
-    enable = true;
-    settings = {
-      default-timeout = 10000;
-      anchor = "bottom-right";
-    };
-  };
+  # services.mako = {
+  #   enable = false;
+  #   settings = {
+  #     default-timeout = 10000;
+  #     anchor = "bottom-right";
+  #   };
+  # };
 
   wayland.windowManager.hyprland = {
     enable = true;
