@@ -24,6 +24,8 @@
     kubectl-node-shell
     kubectl-neat
     kubectl-cnpg
+    kubernetes-helm
+    minio-client
     kubectx
     pinniped
     terraform
