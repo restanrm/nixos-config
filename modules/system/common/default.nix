@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ./audio.nix
     ./fingerprint.nix
@@ -6,6 +6,7 @@
     ./noctalia-dependencies.nix
     ./podman.nix
     ./ssh.nix
+    ./python.nix
     ./yubikey.nix
     ./tailscale.nix
     ./argocd.nix

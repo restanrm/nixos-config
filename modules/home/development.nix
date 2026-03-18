@@ -4,7 +4,6 @@
     nixd
 
     # python
-    uv
     ty
     ruff
 
