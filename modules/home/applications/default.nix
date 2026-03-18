@@ -26,6 +26,7 @@
     kubectl-cnpg
     kubectx
     pinniped
+    terraform
     k9s
     stern
     sops
