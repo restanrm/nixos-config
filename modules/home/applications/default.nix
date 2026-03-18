@@ -35,6 +35,7 @@
     jq
     httpie
     zsh
+    gum
 
     github-cli
   ];
