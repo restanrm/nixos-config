@@ -25,6 +25,7 @@
     kubectl-neat
     kubectl-cnpg
     kubernetes-helm
+    mirrord
     minio-client
     kubectx
     pinniped
