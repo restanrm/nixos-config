@@ -2,6 +2,7 @@
   imports = [
     ./applications
     ./hyprland
+    ./ssh
     ./noctalia.nix
     #./niri.nix
     ./nvim
