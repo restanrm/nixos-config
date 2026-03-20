@@ -41,6 +41,7 @@
     gum
 
     github-cli
+    dig
   ];
 
   programs.chromium.enable = true;
