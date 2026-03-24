@@ -33,7 +33,10 @@
             {id = "plugin:todo";}
           ];
           right = [
-            {id = "Tray";}
+            {
+              id = "Tray";
+              drawerEnabld = true;
+            }
             {id = "NotificationHistory";}
             {id = "Volume";}
             {id = "Brightness";}
@@ -60,6 +63,9 @@
         enableClipPreview = true;
         clipboardWatchTextCommand = "wl-paste --type text --watch cliphist store";
         clipboardWatchImageCommand = "wl-paste --type image --watch cliphist store";
+      };
+      wallPaper = {
+        automationEnabled = true;
       };
       colorSchemes = {
         predefinedScheme = "Catppuccin";
