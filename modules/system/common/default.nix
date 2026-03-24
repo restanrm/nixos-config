@@ -3,6 +3,7 @@
     ./audio.nix
     ./fingerprint.nix
     ./fonts.nix
+    ./keyd.nix
     ./noctalia-dependencies.nix
     ./podman.nix
     ./ssh.nix
