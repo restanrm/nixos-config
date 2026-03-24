@@ -42,9 +42,8 @@
 
     github-cli
     dig
-    
-    # test 
-    signal-cli
+
+    # install signal application
     signal-desktop
   ];
 
