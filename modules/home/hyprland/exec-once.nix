@@ -1,6 +1,7 @@
 {...}: {
   wayland.windowManager.hyprland.settings = {
     exec-once = [
+      "signal-desktop"
       # "wl-paste --type text --watch cliphist store" # saves text
       # "wl-paste --type image --watch cliphist store" # saves images
       # "dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
