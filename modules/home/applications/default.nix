@@ -42,6 +42,10 @@
 
     github-cli
     dig
+    
+    # test 
+    signal-cli
+    signal-desktop
   ];
 
   programs.chromium.enable = true;
