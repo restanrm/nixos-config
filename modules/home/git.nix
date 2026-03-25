@@ -19,6 +19,10 @@
       ui = {
         default-command = "log";
       };
+      aliases = {
+        tug = ["bookmark" "move" "--from" "heads(::@ & bookmarks())" "--to" "@"];
+        tug- = ["bookmark" "move" "--from" "heads(::@- & bookmarks())" "--to" "@-"];
+      };
     };
   };
 }
