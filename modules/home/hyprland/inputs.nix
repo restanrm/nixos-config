@@ -7,6 +7,8 @@
       sensitivity = 0;
       touchpad = {
         natural_scroll = false;
+        disable_while_typing = true;
+        tap-to-click = false;
       };
     };
     gesture = "3, horizontal, workspace";
