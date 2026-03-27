@@ -8,14 +8,20 @@
           main = {
             capslock = "overload(capslock, esc)";
           };
-          capslock = {
+          alt = {
             h = "left";
             j = "down";
             k = "up";
             l = "right";
-            # secrets for tha1
-            # s = "macro(S0155656)";
           };
+          # capslock = {
+          #   h = "left";
+          #   j = "down";
+          #   k = "up";
+          #   l = "right";
+          #   # secrets for tha1
+          #   # s = "macro(S0155656)";
+          # };
         };
       };
     };
