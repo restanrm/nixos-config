@@ -35,7 +35,7 @@
           right = [
             {
               id = "Tray";
-              drawerEnabld = true;
+              drawerEnabled = false;
             }
             {id = "NotificationHistory";}
             {id = "Volume";}
