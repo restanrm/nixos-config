@@ -25,6 +25,8 @@ echo "󱄅 Reconstruction de NixOS ($HOSTNAME)..."
 
 # Exécution du rebuild avec sudo
 # --flake .#hp-ara utilise le répertoire courant et le nom d'hôte spécifié
+# Si un argument est fourni, il sera utilisé comme label dans le chargeur d'amorçage
+[ -n "$1" ] && export NIXOS_LABEL="$1"
 nixos-rebuild switch --flake .#$HOSTNAME --sudo
 
 # Récupération du résultat
