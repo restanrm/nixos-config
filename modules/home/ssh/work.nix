@@ -8,6 +8,7 @@
         forwardAgent = true;
         extraOptions = {
           PKCS11Provider = "${pkgs.yubico-piv-tool}/lib/libykcs11.so";
+          SetEnv = "TERM=xterm";
         };
       };
       "delivery.sekoia.io" = {
