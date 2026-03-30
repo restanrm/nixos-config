@@ -6,7 +6,7 @@
         ids = ["*"];
         settings = {
           main = {
-            capslock = "overload(capslock, esc)";
+            capslock = "overload(shift, esc)";
           };
           alt = {
             h = "left";
