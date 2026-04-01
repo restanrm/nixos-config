@@ -13,6 +13,7 @@
     vault
     zellij
     ripgrep
+    pwgen
     zoxide
     ncdu
     fzf
