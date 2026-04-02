@@ -1,4 +1,14 @@
-{...}: let
+{pkgs, ...}: let
+  autotype = pkgs.writeShellScript "hyprland-autotype" ''
+    # Wait for the user to release Alt/AltGr modifiers
+    ${pkgs.coreutils}/bin/sleep 0.2
+    if [ -f "$1" ]; then
+      # Read secret and remove any trailing newline
+      SECRET=$(${pkgs.coreutils}/bin/cat "$1" | ${pkgs.coreutils}/bin/tr -d '\n')
+      ${pkgs.wtype}/bin/wtype -d 20 "$SECRET"
+    fi
+  '';
+
   noctaliaBind = [
     "$mod,D, exec, noctalia-shell ipc call launcher toggle" # launcher
     "$mod SHIFT,Return, exec, noctalia-shell ipc call launcher toggle" # launcher
@@ -43,6 +53,11 @@ in {
         "$mod CTRL, left, movecurrentworkspacetomonitor, l"
         "$mod CTRL, right, movecurrentworkspacetomonitor, r"
         ",Print,exec,command grim -g \"$(slurp)\" - | wl-copy"
+
+        # Autotype secrets (Managed script with sleep to allow modifier release)
+        # alt + altgr
+        "ALT MOD5, u, exec, ${autotype} /home/nrm/.config/secrets/username"
+        "ALT MOD5, p, exec, ${autotype} /home/nrm/.config/secrets/password"
 
         # Verrouillage manuel
       ]

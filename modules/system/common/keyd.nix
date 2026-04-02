@@ -1,4 +1,6 @@
-{...}: {
+{pkgs, ...}: {
+  # install wtype to type chars for secrets
+  environment.systemPackages = [pkgs.wtype];
   services.keyd = {
     enable = true;
     keyboards = {
@@ -14,14 +16,6 @@
             k = "up";
             l = "right";
           };
-          # capslock = {
-          #   h = "left";
-          #   j = "down";
-          #   k = "up";
-          #   l = "right";
-          #   # secrets for tha1
-          #   # s = "macro(S0155656)";
-          # };
         };
       };
     };
