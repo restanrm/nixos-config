@@ -16,6 +16,9 @@
         name = "Adrien Raffin";
         email = "adrien.raffin@sekoia.io";
       };
+      remotes.origin = {
+        "auto-track-created-bookmarks" = "*";
+      };
       ui = {
         default-command = "log";
       };
