@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     linode-cli
-    apacheHttp
+    apacheHttpd
     openssl
   ];
 }
