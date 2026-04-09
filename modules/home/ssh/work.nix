@@ -60,6 +60,9 @@
       "dev1-quickwit" = {
         hostname = "172.233.247.243";
       };
+      "shc-lab" = {
+        hostname = "51.210.144.132";
+      };
     };
   };
 }
