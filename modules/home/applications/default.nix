@@ -42,6 +42,10 @@
     gum
     yazi
 
+    #random
+    id3v2
+    yt-dlp
+
     github-cli
     dig
 
