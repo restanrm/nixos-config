@@ -40,6 +40,7 @@
     httpie
     zsh
     gum
+    yazi
 
     github-cli
     dig
