@@ -5,7 +5,6 @@
     # i.e. nixos-24.11
     # Use `nix flake update` to update the flake to the latest revision of the chosen release channel.
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-copilot.url = "github:NixOS/nixpkgs/400de68cd101e8cfebffea121397683caf7f5a34";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
