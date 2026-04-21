@@ -62,6 +62,20 @@
       };
       "shc-lab" = {
         hostname = "51.210.144.132";
+        localForwards = [
+          {
+            bind.address = "127.0.0.1";
+            bind.port = 8001;
+            host.address = "10.0.0.11";
+            host.port = 443;
+          }
+          {
+            bind.address = "127.0.0.1";
+            bind.port = 8002;
+            host.address = "10.0.0.12";
+            host.port = 80;
+          }
+        ];
       };
     };
   };
