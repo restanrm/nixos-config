@@ -75,6 +75,12 @@
             host.address = "10.0.0.12";
             host.port = 80;
           }
+          {
+            bind.address = "127.0.0.1";
+            bind.port = 8003;
+            host.address = "127.0.0.1";
+            host.port = 8003;
+          }
         ];
       };
     };
