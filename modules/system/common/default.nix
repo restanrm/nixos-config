@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   imports = [
     ./audio.nix
+    ./boot.nix
     ./fingerprint.nix
     ./fonts.nix
     ./keyd.nix
