@@ -10,6 +10,7 @@
     initContent = ''
       export PATH="$HOME/.local/bin:$PATH"
       eval "$(zoxide init zsh)"
+      export PATH="/home/nrm/.local/share/pi-node/current/bin:$PATH"
     '';
     sessionVariables = {
       VAULT_ADDR = "https://vault.delivery.sekoia.io";
