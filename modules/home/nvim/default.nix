@@ -2,6 +2,8 @@
   programs.neovim = {
     enable = true;
     defaultEditor = true; # Définit automatiquement EDITOR=nvim
+    withRuby = false;
+    withPython3 = false;
   };
 
   home.sessionVariables = {

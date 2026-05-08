@@ -1,6 +1,7 @@
 {...}: {
   wayland.windowManager.hyprland.settings = {
     exec-once = [
+      "noctalia-shell"
       "signal-desktop"
       # "wl-paste --type text --watch cliphist store" # saves text
       # "wl-paste --type image --watch cliphist store" # saves images

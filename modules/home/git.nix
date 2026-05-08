@@ -1,9 +1,9 @@
 {...}: {
   programs.git = {
     enable = true;
-    userName = "Adrien Raffin";
-    userEmail = "adrien.raffin@sekoia.io";
-    extraConfig = {
+    settings = {
+      user.name = "Adrien Raffin";
+      user.email = "adrien.raffin@sekoia.io";
       init.defaultBranch = "main";
       pull.rebase = true;
     };

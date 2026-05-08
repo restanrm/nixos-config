@@ -33,17 +33,18 @@
   }: {
     # NOTE: 'nixos' is the default hostname
     nixosConfigurations.hp-ara = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       specialArgs = {inherit inputs;};
       modules = [
         ./hosts/hp-ara
+
+        { nixpkgs.hostPlatform = "x86_64-linux"; }
 
         sekoia-io-agent.nixosModules.default
 
         ({pkgs, ...}: {
           nixpkgs.overlays = [
             (final: prev: {
-              sekoia-io-agent = sekoia-io-agent.packages.${prev.system}.default;
+              sekoia-io-agent = sekoia-io-agent.packages.${prev.stdenv.hostPlatform.system}.default;
             })
           ];
         })

@@ -54,6 +54,9 @@
   ];
 
   programs.chromium.enable = true;
-  programs.firefox.enable = true;
+  programs.firefox = {
+    enable = true;
+    configPath = ".config/mozilla/firefox";
+  };
   programs.rofi.enable = true;
 }

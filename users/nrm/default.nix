@@ -3,7 +3,7 @@
 
   home.username = "nrm";
   home.homeDirectory = "/home/nrm";
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
   # home.profileDirectory = "~/.nix-profile";
   # home.sessionPath = [ "~/.nix-profile/bin" ];
 
