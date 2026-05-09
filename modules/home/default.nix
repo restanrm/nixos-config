@@ -4,6 +4,7 @@
     ./hyprland
     ./ssh
     ./noctalia.nix
+    ./bitwarden.nix
     #./niri.nix
     ./nvim
     ./ai.nix

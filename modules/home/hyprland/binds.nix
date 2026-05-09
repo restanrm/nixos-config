@@ -12,6 +12,7 @@
   noctaliaBind = [
     "$mod,D, exec, noctalia-shell ipc call launcher toggle" # launcher
     "$mod SHIFT,Return, exec, noctalia-shell ipc call launcher toggle" # launcher
+    "$mod,J, exec, bwmenu --auto-lock 86400" # password manager
     "$mod,M, exec,  noctalia-shell ipc call notifications toggleHistory" # notifications
     "$mod,P, exec,  noctalia-shell ipc call launcher clipboard" # clipboard
     "$mod ALT,P, exec, noctalia-shell ipc call settings toggle" # settings
@@ -37,7 +38,7 @@ in {
         "$mod SHIFT, A, killactive,"
         "$mod SHIFT, E, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
         "$mod SHIFT,space,togglefloating,"
-        "$mod,J,layoutmsg,togglesplit"
+        #"$mod,J,layoutmsg,togglesplit"
         "$mod,F,fullscreen,1"
         "$mod,TAB,workspace,previous"
         "$mod,c,movefocus,l"
