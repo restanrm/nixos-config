@@ -3,9 +3,10 @@
   inputs,
   ...
 }: {
-  home.packages = [
-    pkgs.gemini-cli
-    pkgs.github-copilot-cli
-    pkgs.rtk
+  home.packages = with pkgs; [
+    gemini-cli
+    github-copilot-cli
+    rtk
+    ollama
   ];
 }
