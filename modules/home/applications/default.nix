@@ -41,6 +41,7 @@
     zsh
     gum
     yazi
+    fd
 
     #random
     id3v2
