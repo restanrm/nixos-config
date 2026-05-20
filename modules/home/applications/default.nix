@@ -42,6 +42,8 @@
     gum
     yazi
     fd
+    openssl
+    ansible
 
     #random
     id3v2
