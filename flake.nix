@@ -50,13 +50,19 @@
         })
 
         home-manager.nixosModules.home-manager
-        {
+        ({...}: {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {inherit inputs;};
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            context = {
+              work = true;
+              hostType = "desktop";
+            };
+          };
           home-manager.users.nrm = import ./users/nrm;
           home-manager.backupFileExtension = "hm-back";
-        }
+        })
       ];
     };
   };

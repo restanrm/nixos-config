@@ -1,4 +1,11 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  context ? {
+    work = false;
+    hostType = "desktop";
+  },
+  ...
+}: {
   xdg.enable = true;
 
   home.username = "nrm";
@@ -10,4 +17,7 @@
   imports = [
     ../../modules/home
   ];
+
+  # Pass context to modules
+  _module.args.context = context;
 }

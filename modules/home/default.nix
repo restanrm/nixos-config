@@ -1,4 +1,10 @@
-{...}: {
+{
+  context ? {
+    work = false;
+    hostType = "desktop";
+  },
+  ...
+}: {
   imports = [
     ./applications
     ./hyprland
@@ -17,4 +23,7 @@
     ./dark-theme.nix
     ./openstack-rs.nix
   ];
+
+  # Pass context to modules
+  _module.args.context = context;
 }
