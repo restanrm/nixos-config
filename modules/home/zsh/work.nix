@@ -9,7 +9,8 @@
       setclip = "wl-copy";
       getclip = "wl-paste";
       os = "openstack";
-      insomnia = "insomnia --enable-features=UseOzonePlatform --ozone-platform=wayland";
+      insomnia = "bruno";
+      longhorn = "kubectl -n longhorn-system port-forward svc/longhorn-frontend 8000:80 --context ";
     };
 
     # Work-specific environment variables
