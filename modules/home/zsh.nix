@@ -25,7 +25,13 @@
 
     initExtra = ''
       # Setup PATH with all custom directories at runtime
-      export PATH="$GOPATH/bin:/opt/shadow-tech/:$HOME/bin:$HOME/.local/bin:/usr/local/bin:''${KREW_ROOT:-''$HOME/.krew}/bin:$HOME/.arkade/bin:$HOME/.cargo/bin:$HOME/.nix-profile/bin:$PATH"
+
+      export PATH=$PATH:~/.nix-profile/bin
+      export PATH=$PATH:~/.arkade/bin
+      export PATH=$PATH:~/.krew/bin
+      export PATH=$PATH:~/.cargo/bin
+      export PATH=$PATH:~/.local/bin
+      export PATH=$PATH:~/.local/share/pi-node/current/bin
 
       # Shared shell functions
 
