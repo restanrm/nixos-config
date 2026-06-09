@@ -44,6 +44,7 @@
     fd
     openssl
     ansible
+    direnv
 
     #random
     id3v2
