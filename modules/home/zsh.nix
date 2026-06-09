@@ -20,11 +20,13 @@
   # Additional shared configurations
   programs.zsh = {
     sessionVariables = {
-      PATH = ''$GOPATH/bin:/opt/shadow-tech/:$HOME/bin:$HOME/.local/bin:/usr/local/bin:''${KREW_ROOT:-''$HOME/.krew}/bin:$PATH'';
       BELL_ADDRESS = "https://bell.restanrm.fr";
     };
 
     initExtra = ''
+      # Setup PATH with all custom directories at runtime
+      export PATH="$GOPATH/bin:/opt/shadow-tech/:$HOME/bin:$HOME/.local/bin:/usr/local/bin:''${KREW_ROOT:-''$HOME/.krew}/bin:$HOME/.arkade/bin:$HOME/.cargo/bin:$HOME/.nix-profile/bin:$PATH"
+
       # Shared shell functions
 
       # Archive utility
@@ -162,6 +164,25 @@
       function f() {
         q="*$1*"
         find . -iname $q
+      }
+
+      # Helper functions for development workflow
+
+      # Reload zsh configuration without logging out
+      function zreload() {
+        echo "🔄 Reloading zsh configuration..."
+        exec zsh
+      }
+
+      # Rebuild NixOS and reload zsh
+      function rebuild() {
+        echo "🔨 Rebuilding NixOS configuration..."
+        sudo nixos-rebuild switch --flake /home/nrm/nixos#hp-ara "$@" && {
+          echo "✅ Rebuild successful!"
+          echo "🔄 Reloading zsh..."
+          sleep 1
+          exec zsh
+        } || echo "❌ Rebuild failed"
       }
     '';
   };

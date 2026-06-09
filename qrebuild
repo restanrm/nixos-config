@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Quick rebuild and reload zsh without logging out
+# Usage: qrebuild [nixos-rebuild args]
+
+set -e
+
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+echo "🔨 Running nixos-rebuild switch..."
+sudo nixos-rebuild switch --flake "$SCRIPT_DIR#hp-ara" "$@"
+
+echo "✅ Rebuild complete!"
+echo ""
+echo "To reload your zsh shell without logging out, run one of:"
+echo "  • exec zsh          (restart shell keeping current directory)"
+echo "  • source ~/.zshrc   (reload config in current shell)"
+echo ""
