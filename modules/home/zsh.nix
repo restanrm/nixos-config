@@ -20,7 +20,7 @@
   # Additional shared configurations
   programs.zsh = {
     sessionVariables = {
-      PATH = ''$GOPATH/bin:/opt/shadow-tech/:$HOME/bin:/usr/local/bin:''${KREW_ROOT:-''$HOME/.krew}/bin:$PATH'';
+      PATH = ''$GOPATH/bin:/opt/shadow-tech/:$HOME/bin:$HOME/.local/bin:/usr/local/bin:''${KREW_ROOT:-''$HOME/.krew}/bin:$PATH'';
       BELL_ADDRESS = "https://bell.restanrm.fr";
     };
 

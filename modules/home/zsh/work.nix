@@ -21,7 +21,7 @@
       RELEASE_ID = "latest";
       PLATFORM = "dev";
       PYTHON_KEYRING_BACKEND = "keyring.backends.null.Keyring";
-      KUBECONFIG = "/home/nrm/dev/git/github.com/SekoiaLab/platform/resources/kubeconfig:/home/nrm/.kube/configs/restanrm.yaml";
+      KUBECONFIG = "/home/nrm/dev/github.com/SekoiaLab/platform/resources/kubeconfig:/home/nrm/.kube/configs/restanrm.yaml";
       LOKI_ADDR = "https://loki-infra.delivery.sekoia.io";
       LOKI_USERNAME = "loki";
     };
