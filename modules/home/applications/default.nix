@@ -45,6 +45,7 @@
     openssl
     ansible
     direnv
+    gcc
 
     #random
     id3v2
