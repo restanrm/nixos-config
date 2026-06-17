@@ -31,6 +31,7 @@
     kubectx
     pinniped
     terraform
+    terragrunt
     k9s
     stern
     sops
