@@ -39,6 +39,9 @@
       "fra1-test" = {
         hostname = "141.94.167.154";
       };
+      "fra1-quickwit" = {
+        hostname = "172.233.245.133";
+      };
       "usa1-production" = {
         hostname = "135.148.232.200";
       };
