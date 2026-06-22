@@ -1,4 +1,8 @@
 {pkgs, ...}: {
+  home.packages = with pkgs; [
+    jjui
+  ];
+
   programs.git = {
     enable = true;
     settings = {
