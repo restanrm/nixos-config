@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   programs.git = {
     enable = true;
     settings = {
@@ -6,6 +6,14 @@
       user.email = "adrien.raffin@sekoia.io";
       init.defaultBranch = "main";
       pull.rebase = true;
+      credential = {
+        "https://github.com" = {
+          helper = "${pkgs.github-cli}/bin/gh auth git-credential";
+        };
+        "https://gist.github.com" = {
+          helper = "${pkgs.github-cli}/bin/gh auth git-credential";
+        };
+      };
     };
   };
 
