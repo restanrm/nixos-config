@@ -25,6 +25,7 @@
     kubectl-node-shell
     kubectl-neat
     kubectl-cnpg
+    kubectl-view-allocations
     kubernetes-helm
     mirrord
     minio-client
