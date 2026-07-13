@@ -12,5 +12,6 @@
     ./yubikey.nix
     ./tailscale.nix
     ./argocd.nix
+    ./solaar.nix
   ];
 }
