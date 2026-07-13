@@ -84,6 +84,7 @@ The following are only loaded when `work=true`:
 
 **Initialization:**
 - Vault and switcher initialization on shell start
+- Work-only tooling such as `azure-cli` with the `vm-repair` extension
 
 ## Personal-Specific Features
 
