@@ -6,6 +6,7 @@
     pavucontrol
     qpwgraph
     libnotify
+    evince
 
     # CLI Tools
     wget
