@@ -29,8 +29,16 @@
   hardware.graphics.enable = true;
   console.useXkbConfig = true;
 
-  # TTY Autologin
-  services.getty.autologinUser = "nrm";
+  # Graphical Login Manager
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.gtkgreet}/bin/gtkgreet --layer-shell --cmd start-hyprland";
+        user = "greeter";
+      };
+    };
+  };
 
   # Nix Settings
   nix.settings.experimental-features = ["flakes nix-command"];
