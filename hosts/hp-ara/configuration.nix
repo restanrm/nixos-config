@@ -29,6 +29,9 @@
   hardware.graphics.enable = true;
   console.useXkbConfig = true;
 
+  # TTY Autologin
+  services.getty.autologinUser = "nrm";
+
   # Nix Settings
   nix.settings.experimental-features = ["flakes nix-command"];
   nix.settings.download-buffer-size = 536870912; # 512MB

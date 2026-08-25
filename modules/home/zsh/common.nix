@@ -240,6 +240,11 @@
 
       # Disable flow control
       stty -ixon
+
+      # Auto-start Hyprland on TTY1
+      if [ "''$(tty)" = "/dev/tty1" ]; then
+        exec start-hyprland
+      fi
     '';
   };
 
