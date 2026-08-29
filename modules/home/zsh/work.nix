@@ -60,6 +60,20 @@
         /usr/bin/horizon-client
       }
 
+      function clickhouse-client() {
+        if kubectl config get-contexts --output name | grep -q "^$1$"; then
+          local region="$1"
+          shift
+        else
+          local region="dev1"
+        fi
+        local query="$*"
+        echo "Region: $region"
+        echo "Query: $query"
+        echo "---"
+        kubectl --context "$region" -n support exec sts/clickhouse-shard0 -- sh -c "clickhouse-client --user \$CLICKHOUSE_ADMIN_USER --password \$CLICKHOUSE_ADMIN_PASSWORD -q \"$query\"" | sed 's/\\n/\n/g'
+      }
+
       # Vault and switcher initialization
       func init_switch () {
         # if ping ok continue else stop
