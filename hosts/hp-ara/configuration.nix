@@ -27,6 +27,7 @@
   # Hardware
   hardware.bluetooth.enable = true;
   hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
   console.useXkbConfig = true;
 
   # Graphical Login Manager

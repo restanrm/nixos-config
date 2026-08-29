@@ -31,6 +31,9 @@
               label = "none";
             }
             {id = "plugin:todo";}
+            {
+              id = "plugin:screen-toolkit";
+            }
           ];
           right = [
             {
