@@ -30,12 +30,12 @@
   hardware.graphics.enable32Bit = true;
   console.useXkbConfig = true;
 
-  # Graphical Login Manager
+  # Graphical Login Manager with Tuigreet
   services.greetd = {
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.gtkgreet}/bin/gtkgreet --layer-shell --cmd start-hyprland";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd start-hyprland";
         user = "greeter";
       };
     };
