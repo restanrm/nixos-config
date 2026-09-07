@@ -48,6 +48,9 @@
       "uae1-production" = {
         hostname = "74.162.88.150";
       };
+      "sgp1-production" = {
+        hostname = "51.79.143.93";
+      };
       "rie-lab" = {
         hostname = "57.128.57.82";
         user = "debian";
