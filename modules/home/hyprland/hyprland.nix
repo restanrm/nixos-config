@@ -14,7 +14,7 @@
     pavucontrol
     playerctl
     brightnessctl
-    ddcutil # manage external screen brightness 
+    ddcutil # manage external screen brightness
   ];
 
   # programs.hyprlock.enable = true; # Déplacé dans hyprlock.nix

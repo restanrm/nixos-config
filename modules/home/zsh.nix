@@ -23,7 +23,7 @@
       BELL_ADDRESS = "https://bell.restanrm.fr";
     };
 
-    initExtra = ''
+    initContent = ''
       # Setup PATH with all custom directories at runtime
 
       export PATH=$PATH:~/.nix-profile/bin

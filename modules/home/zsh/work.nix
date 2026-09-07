@@ -26,7 +26,7 @@
       LOKI_USERNAME = "loki";
     };
 
-    initExtra = ''
+    initContent = ''
       # Work-specific functions
 
       # OBS workspace management

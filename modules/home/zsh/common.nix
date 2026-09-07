@@ -98,7 +98,7 @@
     };
 
     # Init script - runs after oh-my-zsh is loaded
-    initExtra = ''
+    initContent = ''
       # Create tmp directory for user
       if [ ! -d /tmp/$USER ]; then
         mkdir /tmp/$USER 2>/dev/null
