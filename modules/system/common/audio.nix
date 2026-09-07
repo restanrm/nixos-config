@@ -1,5 +1,4 @@
-{...}: {
-  # Indispensable pour la découverte des périphériques AirPlay (mDNS/Zeroconf)
+{pkgs, ...}: {
   services.avahi = {
     enable = true;
     nssmdns4 = true;
@@ -31,4 +30,10 @@
       };
     };
   };
+
+  # Audio utilities in system PATH
+  environment.systemPackages = with pkgs; [
+    pulseaudio # pactl, pacmd
+    alsa-utils # amixer, alsactl
+  ];
 }
