@@ -1,4 +1,4 @@
-{...}: {
+{config, ...}: {
   wayland.windowManager.hyprland = {
     settings = {
       env = [
@@ -12,7 +12,7 @@
         "NIXPKG_ALLOW_UNFREE, 1"
         "XDG_SESSION_TYPE, wayland"
         "GTK_THEME, Adwaita-dark"
-        "QT_QPA_PLATFORMTHEME, gtk2"
+        "QT_QPA_PLATFORMTHEME, ${config.qt.platformTheme.name}"
         "COLOR_SCHEME, prefer-dark"
       ];
     };

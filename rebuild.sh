@@ -22,12 +22,14 @@ alejandra .
 git add .
 
 echo "󱄅 Reconstruction de NixOS ($HOSTNAME)..."
+OLD_SYSTEM=$(readlink -f /run/current-system)
 
 # Exécution du rebuild avec sudo
 # --flake .#hp-ara utilise le répertoire courant et le nom d'hôte spécifié
 # Si un argument est fourni, il sera utilisé comme label dans le chargeur d'amorçage
 [ -n "$1" ] && export NIXOS_LABEL="$@"
-nixos-rebuild switch --flake .#$HOSTNAME --sudo
+# Garder le client installé, compatible avec le systemd encore en cours.
+/run/current-system/sw/bin/nixos-rebuild switch --no-reexec --flake .#$HOSTNAME --sudo
 
 # Récupération du résultat
 if [ $? -eq 0 ]; then
@@ -36,13 +38,10 @@ if [ $? -eq 0 ]; then
   # Affichage du diff entre les générations
   if command -v nvd &>/dev/null; then
     echo "󰒡 Changements depuis la dernière génération :"
-    nvd diff /run/current-system "$CONF_DIR/result"
+    nvd diff "$OLD_SYSTEM" /run/current-system
   fi
 else
   echo "󰅙 Erreur lors de la reconstruction."
 fi
-
-# Nettoyage du lien symbolique temporaire 'result'
-[ -L result ] && rm result
 
 popd >/dev/null

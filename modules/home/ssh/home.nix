@@ -1,9 +1,9 @@
 {pkgs, ...}: {
   programs.ssh = {
     enable = true;
-    matchBlocks = {
+    settings = {
       "restanrm.fr" = {
-        user = "nrm";
+        User = "nrm";
       };
     };
   };

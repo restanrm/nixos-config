@@ -2,13 +2,25 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  system = pkgs.stdenv.hostPlatform.system;
+  legacyPkgs = inputs.noctalia-nixpkgs.legacyPackages.${system};
+in {
   imports = [
     inputs.noctalia.homeModules.default
   ];
 
   programs.noctalia-shell = {
     enable = true;
+    # Frozen glibc cannot load the newer host Mesa; isolate only this shell's EGL driver.
+    # ponytail: direct children inherit the EGL override; remove with Noctalia v5.
+    package = inputs.noctalia.packages.${system}.default.overrideAttrs (old: {
+      preFixup =
+        old.preFixup
+        + ''
+          qtWrapperArgs+=(--set __EGL_VENDOR_LIBRARY_FILENAMES "${legacyPkgs.mesa}/share/glvnd/egl_vendor.d/50_mesa.json")
+        '';
+    });
     systemd.enable = false;
     settings = {
       bar = {

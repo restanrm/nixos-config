@@ -34,6 +34,8 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
+    # New Home Manager defaults to Lua; preserve our existing configuration.
+    configType = "hyprlang";
     systemd.enable = true;
     settings = {
       monitor = ",preferred,auto,1";

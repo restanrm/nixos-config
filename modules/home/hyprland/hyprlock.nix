@@ -2,11 +2,7 @@
   programs.hyprlock = {
     enable = true;
     settings = {
-      general = {
-        disable_loading = true;
-        hide_cursor = true;
-        no_fade_in = false;
-      };
+      general.hide_cursor = true;
 
       # Support natif de l'authentification par empreinte
       # Cela permet de mieux gérer le choix entre mot de passe et empreinte

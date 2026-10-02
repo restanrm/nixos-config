@@ -1,6 +1,4 @@
 {pkgs, ...}: {
-  hardware.logitech.wireless = {
-    enable = true;
-    enableGraphical = true; # installs solaar
-  };
+  hardware.logitech.wireless.enable = true;
+  programs.solaar.enable = true;
 }

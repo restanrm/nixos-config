@@ -45,7 +45,8 @@
   nix.settings.experimental-features = ["flakes nix-command"];
   nix.settings.download-buffer-size = 536870912; # 512MB
   nix.gc = {
-    automatic = true;
+    # Keep recovery generations until the staged migration is accepted.
+    automatic = false;
     dates = "weekly";
     options = "--delete-older-than 15d";
   };
@@ -72,11 +73,14 @@
 
   programs.zsh.enable = true;
   programs.dconf.enable = true;
+  # xdg-document-portal needs the fusermount3 security wrapper.
+  programs.fuse.enable = true;
 
   # Security & Management
   nixpkgs.config.allowUnfree = true;
   system.autoUpgrade = {
-    enable = true;
+    # Resume only after both upgrade stages have been accepted.
+    enable = false;
     allowReboot = false;
   };
 

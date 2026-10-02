@@ -183,7 +183,8 @@
       # Rebuild NixOS and reload zsh
       function rebuild() {
         echo "🔨 Rebuilding NixOS configuration..."
-        sudo nixos-rebuild switch --flake /home/nrm/nixos#hp-ara "$@" && {
+        # Use the installed client rather than re-execing the candidate version.
+        sudo /run/current-system/sw/bin/nixos-rebuild switch --no-reexec --flake /home/nrm/nixos#hp-ara "$@" && {
           echo "✅ Rebuild successful!"
           echo "🔄 Reloading zsh..."
           sleep 1
