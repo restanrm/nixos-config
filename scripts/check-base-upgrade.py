@@ -48,7 +48,7 @@ query = """cfg: let hm = cfg.home-manager.users.nrm; in {
   autoUpgrade = cfg.system.autoUpgrade.enable;
   gc = cfg.nix.gc.automatic;
   hyprlandType = hm.wayland.windowManager.hyprland.configType;
-  hyprlandConfig = hm.xdg.configFile."hypr/hyprland.conf".text;
+  hyprlandConfig = hm.xdg.configFile."hypr/hyprland.lua".text;
   sshConfig = hm.home.file.".ssh/config".text;
   qtTheme = hm.qt.platformTheme.name;
 }"""
@@ -126,11 +126,11 @@ print("PASS: frozen EGL driver initialized without creating a window")
 )
 assert config["systemStateVersion"] == config["homeStateVersion"] == "26.05"
 assert not config["autoUpgrade"] and not config["gc"]
-assert config["hyprlandType"] == "hyprlang"
+assert config["hyprlandType"] == "lua"
 assert config["qtTheme"] == "gtk3"
-assert "env=QT_QPA_PLATFORMTHEME, gtk3" in config["hyprlandConfig"]
-assert "exec-once=noctalia-shell" in config["hyprlandConfig"]
-assert "exec-once=noctalia\n" not in config["hyprlandConfig"]
+assert 'hl.env("QT_QPA_PLATFORMTHEME", "gtk3")' in config["hyprlandConfig"]
+assert 'hl.exec_cmd("noctalia-shell")' in config["hyprlandConfig"]
+assert 'hl.exec_cmd("noctalia")' not in config["hyprlandConfig"]
 assert config["settings"]["idle"]["enabled"] is False
 assert config["idle"]["general"]["lock_cmd"] == "pidof hyprlock || hyprlock"
 assert config["lock"]["auth"]["fingerprint"]["enabled"] is True
@@ -171,5 +171,5 @@ with tempfile.TemporaryDirectory(dir=backup) as directory:
         assert effective_ssh(baseline_ssh, host) == effective_ssh(candidate, host), host
 
 print(
-    f"PASS: backups, frozen Noctalia source/settings and EGL, state versions, legacy Hyprland, locking, FUSE, and {len(hosts)} SSH cases"
+    f"PASS: backups, frozen Noctalia source/settings and EGL, state versions, Lua Hyprland, locking, FUSE, and {len(hosts)} SSH cases"
 )

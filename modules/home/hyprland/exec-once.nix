@@ -1,14 +1,10 @@
 {...}: {
-  wayland.windowManager.hyprland.settings = {
-    exec-once = [
-      "noctalia-shell"
-      "signal-desktop"
-      # "wl-paste --type text --watch cliphist store" # saves text
-      # "wl-paste --type image --watch cliphist store" # saves images
-      # "dbus-update-activation-environment --all --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-      # "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-      # "systemctl --user start hyprpolkitagent"
-      "hypridle"
-    ];
-  };
+  # extraConfig runs after Home Manager's own session-target startup hook.
+  wayland.windowManager.hyprland.extraConfig = ''
+    hl.on("hyprland.start", function()
+      hl.exec_cmd("noctalia-shell")
+      hl.exec_cmd("signal-desktop")
+      hl.exec_cmd("hypridle")
+    end)
+  '';
 }

@@ -34,15 +34,17 @@
 
   wayland.windowManager.hyprland = {
     enable = true;
-    # New Home Manager defaults to Lua; preserve our existing configuration.
-    configType = "hyprlang";
+    configType = "lua";
     systemd.enable = true;
     settings = {
-      monitor = ",preferred,auto,1";
-
-      "$mod" = "SUPER";
-      "$terminal" = "alacritty";
-      "$menu" = "rofi -show drun";
+      monitor = {
+        output = "";
+        mode = "preferred";
+        position = "auto";
+        scale = 1;
+      };
+      mod._var = "SUPER";
+      terminal._var = "alacritty";
     };
   };
 }

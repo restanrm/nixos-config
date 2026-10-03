@@ -1,6 +1,6 @@
 {...}: {
   wayland.windowManager.hyprland.settings = {
-    input = {
+    config.input = {
       kb_layout = "fr";
       kb_variant = "bepo";
       follow_mouse = 1;
@@ -8,9 +8,13 @@
       touchpad = {
         natural_scroll = false;
         disable_while_typing = true;
-        tap-to-click = false;
+        tap_to_click = false;
       };
     };
-    gesture = "3, horizontal, workspace";
+    gesture = {
+      fingers = 3;
+      direction = "horizontal";
+      action = "workspace";
+    };
   };
 }

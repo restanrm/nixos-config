@@ -15,6 +15,8 @@ in {
     # Frozen glibc cannot load the newer host Mesa; isolate only this shell's EGL driver.
     # ponytail: direct children inherit the EGL override; remove with Noctalia v5.
     package = inputs.noctalia.packages.${system}.default.overrideAttrs (old: {
+      # Hyprland's Lua mode also requires Lua dispatcher expressions over IPC.
+      patches = (old.patches or []) ++ [./hyprland/noctalia-lua-ipc.patch];
       preFixup =
         old.preFixup
         + ''

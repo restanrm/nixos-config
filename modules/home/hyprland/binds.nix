@@ -8,86 +8,68 @@
       ${pkgs.wtype}/bin/wtype -d 20 "$SECRET"
     fi
   '';
-
-  noctaliaBind = [
-    "$mod,D, exec, noctalia-shell ipc call launcher toggle" # launcher
-    "$mod SHIFT,Return, exec, noctalia-shell ipc call launcher toggle" # launcher
-    "$mod,J, exec, bwmenu --auto-lock 86400" # password manager
-    "$mod,M, exec,  noctalia-shell ipc call notifications toggleHistory" # notifications
-    "$mod,P, exec,  noctalia-shell ipc call launcher clipboard" # clipboard
-    "$mod ALT,P, exec, noctalia-shell ipc call settings toggle" # settings
-    # "$mod CTRL,L, exec,  noctalia-shell ipc call sessionMenu lockAndSuspend" # lockscreen
-    "$mod,W,  exec,noctalia-shell ipc call wallpaper toggle" # wallpaper
-    "$mod,X,  exec, noctalia-shell ipc call sessionMenu toggle" # power menu
-    "$mod, code:42, exec,  noctalia-shell ipc call controlCenter toggle" # noctalia control center (mod + ,)
-    "$mod CTRL,R, exec,  noctalia-shell ipc call screenRecorder toggle" # screenrecorder
-    "$mod SHIFT,R, exec,  restart.noctalia" # restart noctalia shell
-    "$mod CTRL, L, exec, loginctl lock-session"
-  ];
-  standardBind = [
-    "$mod,D,exec,$menu"
-    "$mod,P,Clipboard History, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy"
-    "$mod CTRL, L, exec, loginctl lock-session"
-  ];
 in {
-  wayland.windowManager.hyprland.settings = {
-    bind =
-      noctaliaBind
-      ++ [
-        "$mod, code:36, exec, $terminal"
-        "$mod SHIFT, A, killactive,"
-        "$mod SHIFT, E, exec, command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"
-        "$mod SHIFT,space,togglefloating,"
-        #"$mod,J,layoutmsg,togglesplit"
-        "$mod,F,fullscreen,1"
-        "$mod,TAB,workspace,previous"
-        "$mod,c,movefocus,l"
-        "$mod,r,movefocus,r"
-        "$mod,s,movefocus,u"
-        "$mod,t,movefocus,d"
-        "$mod SHIFT,c,swapwindow,l"
-        "$mod SHIFT,r,swapwindow,r"
-        "$mod SHIFT,s,swapwindow,u"
-        "$mod SHIFT,t,swapwindow,d"
-        "$mod SHIFT, code:20 ,togglespecialworkspace,magic"
-        "$mod, code:20 ,movetoworkspace,special:magic"
-        "$mod CTRL, left, movecurrentworkspacetomonitor, l"
-        "$mod CTRL, right, movecurrentworkspacetomonitor, r"
-        ",Print,exec,command grim -g \"$(slurp)\" - | wl-copy"
+  wayland.windowManager.hyprland.extraConfig = ''
+    -- Noctalia / session shortcuts
+    hl.bind(mod .. " + D", hl.dsp.exec_cmd("noctalia-shell ipc call launcher toggle"))
+    hl.bind(mod .. " + SHIFT + Return", hl.dsp.exec_cmd("noctalia-shell ipc call launcher toggle"))
+    hl.bind(mod .. " + J", hl.dsp.exec_cmd("bwmenu --auto-lock 86400"))
+    hl.bind(mod .. " + M", hl.dsp.exec_cmd("noctalia-shell ipc call notifications toggleHistory"))
+    hl.bind(mod .. " + P", hl.dsp.exec_cmd("noctalia-shell ipc call launcher clipboard"))
+    hl.bind(mod .. " + ALT + P", hl.dsp.exec_cmd("noctalia-shell ipc call settings toggle"))
+    hl.bind(mod .. " + W", hl.dsp.exec_cmd("noctalia-shell ipc call wallpaper toggle"))
+    hl.bind(mod .. " + X", hl.dsp.exec_cmd("noctalia-shell ipc call sessionMenu toggle"))
+    hl.bind(mod .. " + code:42", hl.dsp.exec_cmd("noctalia-shell ipc call controlCenter toggle"))
+    hl.bind(mod .. " + CTRL + R", hl.dsp.exec_cmd("noctalia-shell ipc call screenRecorder toggle"))
+    hl.bind(mod .. " + SHIFT + R", hl.dsp.exec_cmd("restart.noctalia"))
+    hl.bind(mod .. " + CTRL + L", hl.dsp.exec_cmd("loginctl lock-session"))
 
-        # Autotype secrets (Managed script with sleep to allow modifier release)
-        # alt + altgr
-        "ALT MOD5, u, exec, ${autotype} /home/nrm/.config/secrets/username"
-        "ALT MOD5, p, exec, ${autotype} /home/nrm/.config/secrets/password"
+    -- Window management; fullscreen=1 previously meant maximized, not exclusive fullscreen.
+    hl.bind(mod .. " + code:36", hl.dsp.exec_cmd(terminal))
+    hl.bind(mod .. " + SHIFT + A", hl.dsp.window.close())
+    hl.bind(mod .. " + SHIFT + E", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+    hl.bind(mod .. " + SHIFT + space", hl.dsp.window.float())
+    hl.bind(mod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
+    hl.bind(mod .. " + TAB", hl.dsp.focus({ workspace = "previous" }))
+    hl.bind(mod .. " + C", hl.dsp.focus({ direction = "left" }))
+    hl.bind(mod .. " + R", hl.dsp.focus({ direction = "right" }))
+    hl.bind(mod .. " + S", hl.dsp.focus({ direction = "up" }))
+    hl.bind(mod .. " + T", hl.dsp.focus({ direction = "down" }))
+    hl.bind(mod .. " + SHIFT + C", hl.dsp.window.swap({ direction = "left" }))
+    hl.bind(mod .. " + SHIFT + R", hl.dsp.window.swap({ direction = "right" }))
+    hl.bind(mod .. " + SHIFT + S", hl.dsp.window.swap({ direction = "up" }))
+    hl.bind(mod .. " + SHIFT + T", hl.dsp.window.swap({ direction = "down" }))
+    hl.bind(mod .. " + SHIFT + code:20", hl.dsp.workspace.toggle_special("magic"))
+    hl.bind(mod .. " + code:20", hl.dsp.window.move({ workspace = "special:magic", follow = true }))
+    hl.bind(mod .. " + CTRL + left", hl.dsp.workspace.move({ monitor = "l" }))
+    hl.bind(mod .. " + CTRL + right", hl.dsp.workspace.move({ monitor = "r" }))
+    hl.bind("Print", hl.dsp.exec_cmd([[command grim -g "$(slurp)" - | wl-copy]]))
 
-        # Verrouillage manuel
-      ]
-      ++ (
-        builtins.concatLists (builtins.genList (i: let
-            ws = i + 1;
-          in [
-            "$mod, code:1${toString i}, workspace, ${toString ws}"
-            "$mod SHIFT, code:1${toString i}, movetoworkspace, ${toString ws}"
-          ])
-          9)
-      );
-    bindm = [
-      "$mod, mouse:272, movewindow"
-      "$mod, mouse:273, resizewindow"
-    ];
-    bindel = [
-      ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"
-      ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-      ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-      ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-      ",XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+"
-      ",XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-"
-    ];
-    bindl = [
-      ",XF86AudioNext, exec, playerctl next"
-      ",XF86AudioPause, exec, playerctl play-pause"
-      ",XF86AudioPlay, exec, playerctl play-pause"
-      ",XF86AudioPrev, exec, playerctl previous"
-    ];
-  };
+    -- Preserve the delayed autotype script and Alt/AltGr combinations.
+    hl.bind("ALT + MOD5 + U", hl.dsp.exec_cmd("${autotype} /home/nrm/.config/secrets/username"))
+    hl.bind("ALT + MOD5 + P", hl.dsp.exec_cmd("${autotype} /home/nrm/.config/secrets/password"))
+
+    -- Preserve physical number-row keycodes (10 through 18) under Bépo.
+    for workspace = 1, 9 do
+      local key = " + code:" .. (workspace + 9)
+      hl.bind(mod .. key, hl.dsp.focus({ workspace = workspace }))
+      hl.bind(mod .. " + SHIFT" .. key, hl.dsp.window.move({ workspace = workspace, follow = true }))
+    end
+
+    hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+    hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+    -- Repeat/locked behavior matches bindel and bindl respectively.
+    hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
+    hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true, repeating = true })
+    hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true, repeating = true })
+    hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true, repeating = true })
+    hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
+    hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })
+
+    hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
+    hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+    hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+    hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+  '';
 }

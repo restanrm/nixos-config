@@ -1,0 +1,28 @@
+--- a/Services/Compositor/HyprlandService.qml
++++ b/Services/Compositor/HyprlandService.qml
+@@ -531 +531 @@
+-        Hyprland.dispatch(`workspace ${workspace.name}`);
++        Hyprland.dispatch(`hl.dsp.focus({ workspace = ${JSON.stringify(workspace.name)} })`);
+@@ -534 +534 @@
+-      Hyprland.dispatch(`workspace ${workspace.idx}`);
++      Hyprland.dispatch(`hl.dsp.focus({ workspace = ${JSON.stringify(workspace.idx)} })`);
+@@ -548,2 +548,2 @@
+-      Hyprland.dispatch(`focuswindow address:0x${windowId}`);
+-      Hyprland.dispatch(`alterzorder top,address:0x${windowId}`); // Bring the focused window to the top (essential for Float Mode)
++      Hyprland.dispatch(`hl.dsp.focus({ window = ${JSON.stringify("address:0x" + windowId)} })`);
++      Hyprland.dispatch(`hl.dsp.window.alter_zorder({ mode = "top", window = ${JSON.stringify("address:0x" + windowId)} })`); // Bring the focused window to the top (essential for Float Mode)
+@@ -557 +557 @@
+-      Hyprland.dispatch(`killwindow address:0x${window.id}`);
++      Hyprland.dispatch(`hl.dsp.window.kill({ window = ${JSON.stringify("address:0x" + window.id)} })`);
+@@ -565 +565 @@
+-      Quickshell.execDetached(["hyprctl", "dispatch", "dpms", "off"]);
++      Quickshell.execDetached(["hyprctl", "dispatch", 'hl.dsp.dpms({ action = "off" })']);
+@@ -573 +573 @@
+-      Quickshell.execDetached(["hyprctl", "dispatch", "dpms", "on"]);
++      Quickshell.execDetached(["hyprctl", "dispatch", 'hl.dsp.dpms({ action = "on" })']);
+@@ -581 +581 @@
+-      Quickshell.execDetached(["hyprctl", "dispatch", "exit"]);
++      Quickshell.execDetached(["hyprctl", "dispatch", "hl.dsp.exit()"]);
+@@ -610 +610 @@
+-      Quickshell.execDetached(["hyprctl", "dispatch", "--", "exec"].concat(command));
++      Quickshell.execDetached(["hyprctl", "dispatch", `hl.dsp.exec_cmd(${JSON.stringify([].concat(command).join(" "))})`]);
