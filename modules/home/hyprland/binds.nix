@@ -28,6 +28,8 @@ in {
     -- Retain read-only access to the legacy clipboard database during migration.
     hl.bind(mod .. " + CTRL + P", hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"))
     hl.bind(mod .. " + CTRL + L", hl.dsp.exec_cmd("loginctl lock-session"))
+    hl.bind("F9", hl.dsp.exec_cmd("/home/nrm/.local/bin/voicy start"))
+    hl.bind("F9", hl.dsp.exec_cmd("/home/nrm/.local/bin/voicy stop"), { release = true })
 
     -- Window management; fullscreen=1 previously meant maximized, not exclusive fullscreen.
     hl.bind(mod .. " + code:36", hl.dsp.exec_cmd(terminal))
