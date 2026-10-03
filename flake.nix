@@ -12,17 +12,14 @@
 
     sekoia-io-agent.url = "git+ssh://git@github.com/r1chev/flake-sekoia-io-agent.git";
 
-    # Keep the legacy shell and its dependencies frozen during the base upgrade.
-    noctalia-nixpkgs.url = "github:NixOS/nixpkgs/549bd84d6279f9852cae6225e372cc67fb91a4c1";
+    # Pin the latest upstream revision and compatible plugin code for rollout.
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell/eb2b53ddaa7564f5c93031cbe65cd5b6ef3c12a9";
-      inputs.nixpkgs.follows = "noctalia-nixpkgs";
-      inputs.noctalia-qs.follows = "noctalia-qs";
+      url = "github:noctalia-dev/noctalia/064476d48818896ef0dd93f42ccb632dd8f52c55";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    noctalia-qs = {
-      url = "github:noctalia-dev/noctalia-qs/d3e26ccd9eecde9139be00caf5dc2d4260fb31ee";
-      inputs.nixpkgs.follows = "noctalia-nixpkgs";
+    noctalia-plugins = {
+      url = "github:noctalia-dev/community-plugins/01c3ad4fc2da5d1c1ef03bff7cbfe44b759f2ce6";
+      flake = false;
     };
   };
   outputs = inputs @ {

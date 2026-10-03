@@ -4,7 +4,6 @@ import collections
 import json
 import os
 import pathlib
-import re
 import subprocess
 import tempfile
 
@@ -17,7 +16,8 @@ query = """cfg: let hm = cfg.home-manager.users.nrm; in {
   text = hm.xdg.configFile."hypr/hyprland.lua".text;
   files = builtins.attrNames hm.xdg.configFile;
   hyprland = toString hm.wayland.windowManager.hyprland.finalPackage;
-  noctalia = toString hm.programs.noctalia-shell.package;
+  noctalia = toString hm.programs.noctalia.package;
+  noctaliaService = hm.systemd.user.services.noctalia.Service.ExecStart;
   idle = hm.services.hypridle.settings;
 }"""
 data = json.loads(
@@ -146,7 +146,28 @@ for group, flags in (("bind", ""), ("bindel", "el"), ("bindl", "l"), ("bindm", "
         value = value.replace(
             "hyprctl dispatch exit", "hyprctl dispatch 'hl.dsp.exit()'"
         )
+        translations = {
+            "noctalia-shell ipc call launcher toggle": "noctalia msg panel-toggle launcher",
+            "noctalia-shell ipc call notifications toggleHistory": "noctalia msg panel-toggle control-center notifications",
+            "noctalia-shell ipc call launcher clipboard": "noctalia msg panel-toggle clipboard",
+            "noctalia-shell ipc call settings toggle": "noctalia msg settings-toggle",
+            "noctalia-shell ipc call wallpaper toggle": "noctalia msg panel-toggle wallpaper",
+            "noctalia-shell ipc call sessionMenu toggle": "noctalia msg panel-toggle session",
+            "noctalia-shell ipc call controlCenter toggle": "noctalia msg panel-toggle control-center",
+            "noctalia-shell ipc call screenRecorder toggle": "noctalia msg plugin alexander/screen-toolkit:service all toggle",
+        }
+        if value == "restart.noctalia":
+            mods = "SUPER CTRL SHIFT"
+            value = "systemctl --user restart noctalia.service"
+        value = translations.get(value, value)
         expected_binds[key(mods, symbol), action, value, flags] += 1
+expected_binds[
+    key("SUPER CTRL", "P"),
+    "exec",
+    "cliphist list | rofi -dmenu | cliphist decode | wl-copy",
+    "",
+] += 1
+expected_binds[key("CTRL", "J"), "exec", "bwmenu --auto-lock 86400", ""] += 1
 
 with tempfile.TemporaryDirectory(dir=backup) as directory:
     directory = pathlib.Path(directory)
@@ -186,50 +207,21 @@ with tempfile.TemporaryDirectory(dir=backup) as directory:
         tuple(part.strip() for part in value.split(",", 1)) for value in old["env"]
     )
     assert env == expected_env
-    assert starts[1:] == old["exec-once"]
+    assert starts[1:] == [cmd for cmd in old["exec-once"] if cmd != "noctalia-shell"]
+    assert data["noctaliaService"] == [data["noctalia"] + "/bin/noctalia"]
     assert "dbus-update-activation-environment --systemd" in starts[0]
     assert "systemctl --user stop hyprland-session.target" in stops[0]
 
-    # Evaluate the patched QML functions with fake IPC objects; do not run Noctalia.
-    service = (
-        pathlib.Path(data["noctalia"])
-        / "share/noctalia-shell/Services/Compositor/HyprlandService.qml"
+    # Native v5 IPC grammar can be inspected without contacting a running shell.
+    ipc_help = subprocess.check_output(
+        [
+            data["noctalia"] + "/bin/noctalia",
+            "msg",
+            "--help",
+        ],
+        text=True,
     )
-    functions = "\n".join(
-        re.findall(
-            r"^  function .*?^  }", service.read_text(), re.MULTILINE | re.DOTALL
-        )
-    )
-    js = directory / "noctalia-ipc.js"
-    js.write_text(
-        """
-const calls = [];
-const Hyprland = {dispatch: expr => calls.push(expr)};
-const Quickshell = {execDetached: argv => {
-  if (argv[0] === "hyprctl" && argv[1] === "dispatch") {
-    if (argv.length !== 3) throw Error("Legacy dispatch argument list");
-    calls.push(argv[2]);
-  }
-}};
-const Logger = {e: (...args) => { throw Error(args.join(" ")); }, w: () => {}};
-"""
-        + functions
-        + """
-switchToWorkspace({name: 'code "quoted" workspace'});
-switchToWorkspace({idx: 9});
-focusWindow({id: "1a2b"});
-closeWindow({id: "1a2b"});
-turnOffMonitors(); turnOnMonitors(); logout();
-spawn(["printf", "'%s'", "hello"]);
-spawn("printf hello");
-console.log(JSON.stringify(calls));
-"""
-    )
-    expressions = json.loads(subprocess.check_output(["node", str(js)], text=True))
-    assert len(expressions) == 10
-    assert all(expr.startswith("hl.dsp.") for expr in expressions)
-    assert "workspace = 9" in expressions[1]
-    config.write_text(data["text"] + "\n" + "\n".join(expressions) + "\n")
+    assert "panel-toggle" in ipc_help and "settings-toggle" in ipc_help
     check = subprocess.run(
         [
             str(pathlib.Path(data["hyprland"]) / "bin/Hyprland"),
@@ -263,5 +255,5 @@ console.log(JSON.stringify(calls));
     )
 
 print(
-    f"PASS: {sum(binds.values())} bindings, environment, layout, startup/shutdown, Noctalia IPC and Hyprland Lua parser"
+    f"PASS: {sum(binds.values())} bindings, environment, layout, startup/shutdown, Noctalia v5 IPC and Hyprland Lua parser"
 )

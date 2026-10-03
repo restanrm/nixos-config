@@ -3,115 +3,155 @@
   inputs,
   ...
 }: let
-  system = pkgs.stdenv.hostPlatform.system;
-  legacyPkgs = inputs.noctalia-nixpkgs.legacyPackages.${system};
+  pinnedPlugins = pkgs.linkFarm "noctalia-plugins" [
+    {
+      name = "paged-todo";
+      path = "${inputs.noctalia-plugins}/paged-todo";
+    }
+    {
+      name = "screen-toolkit";
+      path = "${inputs.noctalia-plugins}/screen-toolkit";
+    }
+  ];
 in {
   imports = [
     inputs.noctalia.homeModules.default
   ];
 
-  programs.noctalia-shell = {
+  # Seed only new plugin state; the Todo port handles its own v4 import.
+  systemd.user.services.noctalia.Service.ExecStartPre = pkgs.writeShellScript "noctalia-migrate-state" ''
+    ${pkgs.python3}/bin/python3 ${../../scripts/migrate-noctalia-state.py} \
+      "$HOME/.config/noctalia/plugins/screen-toolkit/settings.json" \
+      "''${XDG_STATE_HOME:-$HOME/.local/state}/noctalia/plugins/data/alexander/screen-toolkit"
+  '';
+
+  programs.noctalia = {
     enable = true;
-    # Frozen glibc cannot load the newer host Mesa; isolate only this shell's EGL driver.
-    # ponytail: direct children inherit the EGL override; remove with Noctalia v5.
-    package = inputs.noctalia.packages.${system}.default.overrideAttrs (old: {
-      # Hyprland's Lua mode also requires Lua dispatcher expressions over IPC.
-      patches = (old.patches or []) ++ [./hyprland/noctalia-lua-ipc.patch];
-      preFixup =
-        old.preFixup
-        + ''
-          qtWrapperArgs+=(--set __EGL_VENDOR_LIBRARY_FILENAMES "${legacyPkgs.mesa}/share/glvnd/egl_vendor.d/50_mesa.json")
-        '';
-    });
-    systemd.enable = false;
+    systemd.enable = true;
+    checkConfig = true;
     settings = {
-      bar = {
-        density = "compact";
+      shell = {
+        corner_radius_scale = 0.2;
+        polkit_agent = true;
+        clipboard_enabled = true;
+        clipboard_history_max_entries = 750;
+        # Do not retain password-manager selections after their owner exits.
+        clipboard_keep_from_closed_apps = false;
+        date_format = "%m/%d/%Y";
+        session.actions = [
+          {
+            action = "command";
+            label = "Lock";
+            glyph = "lock";
+            command = "loginctl lock-session";
+          }
+          {action = "logout";}
+          # hypridle's logind sleep inhibitor locks before sleep.
+          {
+            action = "command";
+            label = "Lock & suspend";
+            glyph = "moon";
+            command = "systemctl suspend";
+          }
+          {action = "reboot";}
+          {action = "shutdown";}
+        ];
+      };
+
+      theme = {
+        mode = "dark";
+        source = "builtin";
+        builtin = "Catppuccin";
+      };
+      storage.key_source = "secret-service";
+      location = {
+        auto_locate = false;
+        address = "Rennes, France";
+      };
+      wallpaper = {
+        enabled = true;
+        directory = "/home/nrm/Pictures/Wallpapers";
+        automation.enabled = true;
+      };
+
+      # Keep the existing hypridle/hyprlock ownership during migration.
+      lockscreen.enabled = false;
+      idle.behavior = {
+        lock.enabled = false;
+        screen-off.enabled = false;
+      };
+
+      bar.main = {
         position = "bottom";
-        showCapsule = false;
-        widgets = {
-          left = [
-            {
-              id = "ControlCenter";
-              useDistroLogo = true;
-            }
-            {id = "Network";}
-            {id = "Bluetooth";}
-          ];
-          center = [
-            {
-              hideUnoccupied = false;
-              id = "Workspace";
-              label = "none";
-            }
-            {id = "plugin:todo";}
-            {
-              id = "plugin:screen-toolkit";
-            }
-          ];
-          right = [
-            {
-              id = "Tray";
-              drawerEnabled = false;
-            }
-            {id = "NotificationHistory";}
-            {id = "Volume";}
-            {id = "Brightness";}
-            {id = "ControlCenter";}
-            {id = "";}
-            {id = "";}
-            {
-              alwaysShowPercentage = true;
-              id = "Battery";
-              warningThreshold = 30;
-            }
-            {
-              formatHorizontal = "yyyy-MM-dd HH:mm:ss";
-              formatVertical = "HH mm";
-              id = "Clock";
-              useMonospacedFont = true;
-              usePrimaryColor = true;
-            }
-          ];
+        thickness = 25;
+        capsule = false;
+        start = ["distro-control-center" "network" "bluetooth"];
+        center = ["workspaces" "paged-todo" "screen-toolkit"];
+        end = ["tray" "notifications" "volume" "brightness" "control-center" "battery" "clock"];
+      };
+      widget = {
+        distro-control-center = {
+          type = "control-center";
+          custom_image = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+        };
+        workspaces = {
+          show_labels = false;
+        };
+        paged-todo.type = "baizhu/paged-todo:bar";
+        screen-toolkit.type = "alexander/screen-toolkit:widget";
+        tray.drawer = false;
+        battery = {
+          show_label = true;
+          label_content = "percent";
+        };
+        clock = {
+          format = "{:%Y-%m-%d %H:%M:%S}";
+          vertical_format = "{:%H %M}";
+          font_family = "monospace";
+          color = "primary";
         };
       };
-      appLauncher = {
-        enableClipboardHistory = true;
-        enableClipPreview = true;
-        clipboardWatchTextCommand = "wl-paste --type text --watch cliphist store";
-        clipboardWatchImageCommand = "wl-paste --type image --watch cliphist store";
+      battery.warning_threshold = 30;
+
+      plugins = {
+        enabled = ["baizhu/paged-todo" "alexander/screen-toolkit"];
+        auto_update = "none";
+        source = [
+          {
+            name = "pinned-community";
+            kind = "path";
+            location = "${pinnedPlugins}";
+            enabled = true;
+          }
+        ];
       };
-      wallPaper = {
-        automationEnabled = true;
-      };
-      colorSchemes = {
-        predefinedScheme = "Catppuccin";
-        darkMode = true;
-      };
-      general = {
-        #avatarImage = "/home/drfoobar/.face";
-        radiusRatio = 0.2;
-        autoStartAuth = true;
-        allowPasswordWithFprintd = true;
-      };
-      location = {
-        monthBeforeDay = true;
-        name = "Rennes, France";
-      };
-      idle = {
-        enabled = false;
-        screenOffTimeout = 600;
-        lockTimeout = 300;
-        suspendTimeout = 1800;
-        fadeDuration = 5;
-        screenOffCommand = "";
-        lockCommand = "";
-        suspendCommand = "";
-        resumeScreenOffCommand = "";
-        resumeLockCommand = "";
-        resumeSuspendCommand = "";
-        customCommands = "[{\"name\":\"reduce brightness\",\"timeout\":150,\"command\":\"brightnessctl set 10%\",\"resumeCommand\":\"brightnessctl set 100%\"}]";
+      # The paged-todo port imports mutable v4 data on its first start.
+      plugin_settings = {
+        "baizhu/paged-todo" = {
+          show_completed = true;
+          export_format = "markdown";
+          export_empty_sections = false;
+        };
+        "alexander/screen-toolkit" = {
+          panel-mode = "legacy";
+          selected-ocr-lang = "eng";
+        };
       };
     };
   };
+
+  # Screen Toolkit uses one native recorder/editor; alternatives are unnecessary.
+  home.packages = with pkgs; [
+    hyprpicker
+    tesseract
+    imagemagick
+    zbar
+    ffmpeg
+    bc
+    wl-screenrec
+    satty
+    mpv
+    translate-shell
+    seahorse
+  ];
 }
