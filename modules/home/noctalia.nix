@@ -95,7 +95,7 @@ in {
           custom_image = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
         };
         workspaces = {
-          show_labels = false;
+          show_labels = true;
         };
         paged-todo.type = "baizhu/paged-todo:bar";
         screen-toolkit.type = "alexander/screen-toolkit:widget";
