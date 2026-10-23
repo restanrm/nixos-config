@@ -1,5 +1,75 @@
 # ZSH Configuration Fixes Applied
 
+## Nixpkgs update: Fabric rebuild failure
+
+Azure CLI depends on Fabric 3.2.3, which is incompatible with Invoke 3.
+The Python package overlay in `flake.nix` pins Invoke to 2.2.0, including
+transitive users such as Paramiko, without allowing broken packages.
+Remove this override when nixpkgs provides compatible versions.
+
+Validation: Fabric builds with 317 tests passing (6 skipped, 85 deselected by
+upstream packaging).
+
+## MinIO client replacement
+
+`minio-client`, marked insecure because upstream abandoned maintenance, is replaced
+by PGSTY's maintained [`mcli`](https://github.com/pgsty/mc) release
+`RELEASE.2026-10-18T00-00-00Z`. The local package in
+`modules/home/applications/mcli.nix` installs the checksummed official Linux amd64
+binary for `hp-ara`; update its release URL, version and hash together.
+
+Both `mcli` and the compatibility symlink `mc` are available. Existing `~/.mc`
+configuration is retained; no configuration files or credentials are migrated.
+The package checks both executable names with `--version` during installation.
+No insecure-package allowance or Silo server is added.
+
+Validation: the package builds and both executable version checks pass.
+Full `hp-ara` system evaluation and build succeed. Activation has not been
+performed because interactive sudo authentication is required.
+
+## SEKOIA agent repository migration
+
+`flake.nix` now uses `git+ssh://git@github.com/SekoiaLab/nixpkgs.git`, locked at
+`8bd568cdb8518346fcfdc712a9c88a9dff455a87`, with nixpkgs following this system's
+input. SSH access to the repository is required for future input updates.
+Only `nixosModules.sekoia-agent` is imported; JumpCloud is not enabled.
+The service configuration now uses `services.sekoia-agent`, preserving its
+existing settings and both `SEKOIAEndpointAgent` systemd service names.
+
+The new upstream still declares version 1.11.0 with a stale checksum for
+`agent-latest`, which now serves v1.12.0. The `package` override in
+`modules/system/work/sekoia-io-agent.nix` pins the verified download hash and
+checks the embedded version without running the agent. Remove the override
+when upstream fixes its checksum. The binary was fetched from the official HTTPS
+endpoint; no independent publisher signature was verified. The mutable URL will
+fail checksum verification again if its contents change.
+
+The new module seeds its binary and configuration in `/var/lib/endpoint-agent`
+only when absent, preserving existing runtime files. Subsequent declarative
+package/settings changes do not automatically overwrite that existing state.
+Validation: the migrated agent package builds, and evaluation checks confirm
+version 1.12.0, both enabled services, and no imported JumpCloud service.
+Activation requires interactive sudo authentication; run `./rebuild.sh` locally.
+
+## Load-sensitive HTTP/2 build test
+
+The full build failed in `httpcore2`'s `test_h2_timeout_during_request`, a 10 ms
+cancellation-timing test. All other failures in that build were dependency
+failures. Retrying the unchanged package alone with `--max-jobs 1 --cores 2`
+passed all 244 tests. No package code or test exclusions were changed.
+
+For a lower-contention system build, use:
+
+```bash
+nix build --no-link --max-jobs 4 --cores 2 .#nixosConfigurations.hp-ara.config.system.build.toplevel
+```
+
+The full system build completed successfully with these limits, and an offline
+repeat confirmed all outputs are available. `./rebuild.sh` can now reuse those
+outputs and activate the system with interactive sudo authentication.
+The upstream SEKOIA module emits non-fatal `StartLimitInterval` deprecation
+warnings; these do not block the build.
+
 ## Summary
 
 Two critical issues from the zsh migration have been fixed:

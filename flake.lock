@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790928438,
-        "narHash": "sha256-ZuJbu8VQe/Qzy7GJdZ3Xv7adRllH1o4O7nqONtkhFbA=",
+        "lastModified": 1792703141,
+        "narHash": "sha256-3X34FaSeMJXMx8CK/BN6sZ9knwNauuiJXQhLM+bQQuI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "833540099ef43cbeb28b1e3f3c21901961edb48e",
+        "rev": "6750249c69969d09d952efaf3fab88a2bdac7ec6",
         "type": "github"
       },
       "original": {
@@ -22,27 +22,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1790822859,
-        "narHash": "sha256-69xHQhAeMAD2wDXO7T2pcOZIF9Sga2W+JkmY2a11Ops=",
+        "lastModified": 1792502884,
+        "narHash": "sha256-IoNisKcGbUjdd45qCqywGMCYmZ5EnkxezvLII0FWwNA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c59305bab2065cfecc4944690d9eedbb56f3a9fa",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_2": {
-      "locked": {
-        "lastModified": 1771848320,
-        "narHash": "sha256-0MAd+0mun3K/Ns8JATeHT1sX28faLII5hVLq0L3BdZU=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "2fc6539b481e1d2569f25f8799236694180c0993",
+        "rev": "02c087f3fe673c9e317f206a627cb6b910336dbe",
         "type": "github"
       },
       "original": {
@@ -96,25 +80,27 @@
         "nixpkgs": "nixpkgs",
         "noctalia": "noctalia",
         "noctalia-plugins": "noctalia-plugins",
-        "sekoia-io-agent": "sekoia-io-agent"
+        "sekoia-nixpkgs": "sekoia-nixpkgs"
       }
     },
-    "sekoia-io-agent": {
+    "sekoia-nixpkgs": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
-        "lastModified": 1772099726,
-        "narHash": "sha256-NmkWDrOg1OOi+nIJwLTgcc97/cUgW+gPPGr/GQw+lQ8=",
+        "lastModified": 1790346274,
+        "narHash": "sha256-PWPb2Q/jhypbkZPIYUlBtlcNlDeb9OGEV121rotGhbk=",
         "ref": "refs/heads/main",
-        "rev": "62b7690b208dd8f21b5b96aa783a22dd0ebbfa27",
-        "revCount": 2,
+        "rev": "8bd568cdb8518346fcfdc712a9c88a9dff455a87",
+        "revCount": 26,
         "type": "git",
-        "url": "ssh://git@github.com/r1chev/flake-sekoia-io-agent.git"
+        "url": "ssh://git@github.com/SekoiaLab/nixpkgs.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@github.com/r1chev/flake-sekoia-io-agent.git"
+        "url": "ssh://git@github.com/SekoiaLab/nixpkgs.git"
       }
     }
   },

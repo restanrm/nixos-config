@@ -10,7 +10,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    sekoia-io-agent.url = "git+ssh://git@github.com/r1chev/flake-sekoia-io-agent.git";
+    sekoia-nixpkgs = {
+      url = "git+ssh://git@github.com/SekoiaLab/nixpkgs.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Pin the latest upstream revision and compatible plugin code for rollout.
     noctalia = {
@@ -25,7 +28,7 @@
   outputs = inputs @ {
     self,
     nixpkgs,
-    sekoia-io-agent,
+    sekoia-nixpkgs,
     home-manager,
     ...
   }: {
@@ -37,12 +40,26 @@
 
         {nixpkgs.hostPlatform = "x86_64-linux";}
 
-        sekoia-io-agent.nixosModules.default
+        sekoia-nixpkgs.nixosModules.sekoia-agent
 
         ({pkgs, ...}: {
           nixpkgs.overlays = [
             (final: prev: {
-              sekoia-io-agent = sekoia-io-agent.packages.${prev.stdenv.hostPlatform.system}.default;
+              # Fabric requires Invoke < 3; remove once nixpkgs fixes compatibility.
+              pythonPackagesExtensions =
+                prev.pythonPackagesExtensions
+                ++ [
+                  (pyFinal: pyPrev: {
+                    invoke = pyPrev.invoke.overridePythonAttrs {
+                      version = "2.2.0";
+                      src = prev.fetchPypi {
+                        pname = "invoke";
+                        version = "2.2.0";
+                        hash = "sha256-7my7EBrxqFnH/oTyomTAWQILDLf+NTX5QkMAq1aPa9U=";
+                      };
+                    };
+                  })
+                ];
             })
           ];
         })

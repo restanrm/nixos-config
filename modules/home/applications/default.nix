@@ -29,7 +29,7 @@
     kubectl-view-allocations
     kubernetes-helm
     mirrord
-    minio-client
+    (pkgs.callPackage ./mcli.nix {})
     kubectx
     pinniped
     terraform
