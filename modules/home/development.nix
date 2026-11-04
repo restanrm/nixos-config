@@ -11,6 +11,7 @@
     cargo
 
     # Golang
+    go
 
     # Nix
     alejandra
