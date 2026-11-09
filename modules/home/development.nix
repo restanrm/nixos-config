@@ -2,6 +2,7 @@
   xdg.configFile."gh-dash/config.yml".text = ''
     pager:
       diff: diffnav
+      prApproveComment: ""
   '';
 
   home.packages = with pkgs; [
