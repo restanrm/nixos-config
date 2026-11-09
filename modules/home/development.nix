@@ -1,4 +1,9 @@
 {pkgs, ...}: {
+  xdg.configFile."gh-dash/config.yml".text = ''
+    pager:
+      diff: diffnav
+  '';
+
   home.packages = with pkgs; [
     # LSP
     nixd
@@ -12,6 +17,7 @@
 
     # Golang
     go
+    diffnav
 
     # Nix
     alejandra
