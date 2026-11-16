@@ -197,10 +197,7 @@
           ;;
       esac
 
-      # Completion system
-      autoload -Uz compinit
-      compinit
-
+      # Completion system (initialized by Oh My Zsh)
       zstyle ':completion:*' completer _expand _complete _approximate
       zstyle ':completion:*' format '%d:'
       zstyle ':completion:*' group-name ""

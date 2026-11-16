@@ -13,7 +13,7 @@ All components from your chezmoi dotfiles have been ported to NixOS:
 - ✅ **Environment Variables**: All env vars split between common, work, and personal
 - ✅ **Shell Functions**: All functions (archive, kex, work/endwork, etc.)
 - ✅ **Keyboard Bindings**: All keybindings and terminal-specific settings
-- ✅ **Completion System**: Full zsh completion configuration
+- ✅ **Completion System**: Oh My Zsh initializes completions once; on hp-ara, system-wide compinit is disabled to avoid rebuilding the cache
 - ✅ **Plugins**: FZF, kubectl completion, zoxide integration
 
 ## New File Structure

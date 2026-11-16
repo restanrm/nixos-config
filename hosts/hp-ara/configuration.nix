@@ -72,6 +72,8 @@
   ];
 
   programs.zsh.enable = true;
+  # Oh My Zsh initializes completion after adding its plugins to fpath.
+  programs.zsh.enableGlobalCompInit = false;
   programs.dconf.enable = true;
   # xdg-document-portal needs the fusermount3 security wrapper.
   programs.fuse.enable = true;
