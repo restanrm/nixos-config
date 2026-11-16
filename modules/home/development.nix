@@ -7,6 +7,8 @@
   '';
 
   home.packages = with pkgs; [
+    herdr
+
     # LSP
     nixd
 
