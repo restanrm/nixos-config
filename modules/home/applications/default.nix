@@ -49,6 +49,7 @@
     ansible
     direnv
     gcc
+    bat
 
     #random
     id3v2
