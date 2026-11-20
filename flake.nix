@@ -42,28 +42,6 @@
 
         sekoia-nixpkgs.nixosModules.sekoia-agent
 
-        ({pkgs, ...}: {
-          nixpkgs.overlays = [
-            (final: prev: {
-              # Fabric requires Invoke < 3; remove once nixpkgs fixes compatibility.
-              pythonPackagesExtensions =
-                prev.pythonPackagesExtensions
-                ++ [
-                  (pyFinal: pyPrev: {
-                    invoke = pyPrev.invoke.overridePythonAttrs {
-                      version = "2.2.0";
-                      src = prev.fetchPypi {
-                        pname = "invoke";
-                        version = "2.2.0";
-                        hash = "sha256-7my7EBrxqFnH/oTyomTAWQILDLf+NTX5QkMAq1aPa9U=";
-                      };
-                    };
-                  })
-                ];
-            })
-          ];
-        })
-
         home-manager.nixosModules.home-manager
         ({...}: {
           home-manager.useGlobalPkgs = true;

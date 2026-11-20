@@ -2,13 +2,12 @@
 
 ## Nixpkgs update: Fabric rebuild failure
 
-Azure CLI depends on Fabric 3.2.3, which is incompatible with Invoke 3.
-The Python package overlay in `flake.nix` pins Invoke to 2.2.0, including
-transitive users such as Paramiko, without allowing broken packages.
-Remove this override when nixpkgs provides compatible versions.
+Azure CLI depends on Fabric 3.2.3. The pinned nixpkgs now patches Fabric
+for Invoke 3, so the old Invoke 2.2.0 override in `flake.nix` was removed.
+Keeping the override caused `Context.__init__()` to reject `remainder`.
 
-Validation: Fabric builds with 317 tests passing (6 skipped, 85 deselected by
-upstream packaging).
+Validation: the packaged Fabric can construct a `Connection` with `remainder`
+using Invoke 3.0.3.
 
 ## MinIO client replacement
 
