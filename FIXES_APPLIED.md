@@ -1,5 +1,11 @@
 # ZSH Configuration Fixes Applied
 
+## Hyprland screen sharing: remember the selected source by default
+
+Home Manager sets `screencopy:allow_token_by_default` in `~/.config/hypr/xdph.conf`. This prechecks the remember-choice
+box for all apps using the Hyprland screen sharing portal. Users still choose the source and can uncheck the box.
+After activation, restart `xdg-desktop-portal-hyprland.service` with `systemctl --user` outside an active share.
+
 ## Nixpkgs update: Fabric rebuild failure
 
 Azure CLI depends on Fabric 3.2.3. The pinned nixpkgs now patches Fabric

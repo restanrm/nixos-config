@@ -20,6 +20,12 @@
   # programs.hyprlock.enable = true; # Déplacé dans hyprlock.nix
   programs.rofi.enable = true;
 
+  xdg.configFile."hypr/xdph.conf".text = ''
+    screencopy {
+      allow_token_by_default = 1
+    }
+  '';
+
   # home.file = {
   #   ".config/hypr/hyprland.conf".source = assets/hyprland.conf;
   # };
