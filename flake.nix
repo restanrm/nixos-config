@@ -11,7 +11,7 @@
     };
 
     sekoia-nixpkgs = {
-      url = "git+ssh://git@github.com/SekoiaLab/nixpkgs.git";
+      url = "git+https://github.com/SekoiaLab/nixpkgs.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -40,7 +40,7 @@
 
         {nixpkgs.hostPlatform = "x86_64-linux";}
 
-        sekoia-nixpkgs.nixosModules.sekoia-agent
+        sekoia-nixpkgs.nixosModules.default
 
         home-manager.nixosModules.home-manager
         ({...}: {

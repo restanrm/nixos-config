@@ -90,17 +90,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1793824062,
-        "narHash": "sha256-uQ33lUOjpJgA6XqXjR8CCjsRO2ddMQFVwfQsh0RWG+A=",
+        "lastModified": 1794911689,
+        "narHash": "sha256-TXEx5UIO6W7E32q+aV8F/6aMRKaAMcrCM/pRmCmmfks=",
         "ref": "refs/heads/main",
-        "rev": "c0d56db755dd11267f0e77f6b1983063531674b1",
-        "revCount": 28,
+        "rev": "0ce054dc02156d72ea2d79de6df3afe9eefb2982",
+        "revCount": 29,
         "type": "git",
-        "url": "ssh://git@github.com/SekoiaLab/nixpkgs.git"
+        "url": "https://github.com/SekoiaLab/nixpkgs.git"
       },
       "original": {
         "type": "git",
-        "url": "ssh://git@github.com/SekoiaLab/nixpkgs.git"
+        "url": "https://github.com/SekoiaLab/nixpkgs.git"
       }
     }
   },

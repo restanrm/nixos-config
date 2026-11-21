@@ -5,6 +5,7 @@
 }: {
   services.sekoia-agent = {
     enable = true;
+    intakeKeyFile = "/var/src/secrets/sekoia-agent-intake-key";
     package = inputs.sekoia-nixpkgs.packages.${pkgs.stdenv.hostPlatform.system}.sekoia-agent.overrideAttrs (finalAttrs: old: {
       version = "1.12.0";
       # shortcut: upstream pins a stale agent-latest; remove when its checksum is fixed.
@@ -20,7 +21,6 @@
       '';
     });
     settings = {
-      intakekey = "yGhWnczn1F9BH575xkUGif7pywQoSoGZ";
       roles = [
         "event-collector"
       ];
