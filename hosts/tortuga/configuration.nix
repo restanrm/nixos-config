@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [../../modules/system/common/fonts.nix];
 
   boot.loader.systemd-boot.enable = true;
@@ -10,6 +6,18 @@
 
   networking.hostName = "tortuga";
   networking.networkmanager.enable = true;
+
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      AllowUsers = ["nrm@192.168.1.0/24"];
+      PermitRootLogin = "no";
+      PubkeyAuthentication = true;
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+    };
+  };
 
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
@@ -23,14 +31,20 @@
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager"];
     shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP4rkqMZhakUSRiRxZylyIMIejgzs4uNo6plhB+xfQR4 nrm@thinkpad-ara"
+    ];
   };
 
   programs.zsh.enable = true;
   programs.zsh.enableGlobalCompInit = false;
   programs.firefox.enable = true;
-  environment.systemPackages = [pkgs.chromium pkgs.pavucontrol];
+  environment.systemPackages = [
+    (pkgs.chromium.override {enableWideVine = true;})
+    pkgs.pavucontrol
+  ];
   virtualisation.podman.enable = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  nixpkgs.config.allowUnfreePredicate = pkg: lib.getName pkg == "vault";
+  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "26.11";
 }

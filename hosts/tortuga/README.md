@@ -8,6 +8,7 @@ The work and Hyprland profiles from `hp-ara` are not used. `tortuga` omits Pinni
 settings. Git and Jujutsu use `Adrien Raffin <raffinadrien@gmail.com>`. Vault stays available for the personal Vault
 instance, and `kubectl` is shared. `nrm` also gets age, bat, dig, jq, mcli, PDFtk, Pi (`pi`), SOPS, Stern, uv, Viddy,
 Wget, and Zellij. Curl is already installed system-wide. Podman can run containers without a Docker daemon.
+Unfree packages are allowed on `tortuga`, and Chromium includes Widevine for protected media playback.
 
 ## Gaming
 
@@ -44,7 +45,7 @@ nixos-install --no-root-passwd --no-channel-copy --flake ".#tortuga"
 nixos-enter --root /mnt -c 'passwd nrm'
 ```
 
-Use a new password for `nrm`; do not reuse the live USB password. The installed system does not enable SSH by default.
+Use a new password for `nrm`; do not reuse the live USB password.
 Keep the repository in `/home/nrm/nixos` on the installed system for the `rebuild` shell function.
 
 ## After first boot
@@ -53,3 +54,16 @@ Keep Ethernet connected until Wi-Fi works. Sign in as `nrm`, open GNOME **Settin
 and enter its password there. NetworkManager saves the connection locally; don't put the Wi-Fi password in this repo.
 Disconnect Ethernet and check that the machine can still reach the internet. Pair Bluetooth devices later in GNOME
 Settings as needed.
+
+## SSH access
+
+SSH allows only `nrm` from `192.168.1.0/24`, using the Ed25519 key for `nrm@thinkpad-ara`. Password and root login are
+blocked. From `tortuga`'s console, with the updated repo in `~/nixos`, run
+`sudo nixos-rebuild test --flake ~/nixos#tortuga` to try the configuration without changing the next boot.
+
+Get the current IP with `hostname -I` and the server fingerprint with
+`ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub`. From the laptop, use
+`ssh -o HostKeyAlias=tortuga-installed -o IdentitiesOnly=yes -i ~/.ssh/id_ed25519 nrm@<tortuga-ip>` and check the
+fingerprint before accepting it. The live USB used a different host key. Do not forward port 22 from the router.
+
+Once the key works, run `sudo nixos-rebuild switch --flake ~/nixos#tortuga` to keep SSH enabled across reboots.

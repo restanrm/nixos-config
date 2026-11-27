@@ -8,13 +8,21 @@ let
   names = hm: map lib.getName hm.home.packages;
   workOnly = ["pinniped" "azure-cli"];
   systemPackages = map lib.getName family.environment.systemPackages;
+  chromiumWidevine = flake.nixosConfigurations.tortuga.pkgs.chromium.override {enableWideVine = true;};
   personalTools = ["age" "alacritty" "bat" "jq" "kubectl" "mcli" "pdftk" "pi-coding-agent" "sops" "stern" "uv" "vault" "viddy" "wget" "zellij"];
 in
   assert builtins.attrNames family.home-manager.users == ["nrm"];
   assert family.services.displayManager.gdm.enable && family.services.desktopManager.gnome.enable;
-  assert !family.services.openssh.enable;
+  assert family.services.openssh.enable && builtins.elem 22 family.networking.firewall.allowedTCPPorts;
+  assert family.services.openssh.settings.AllowUsers == ["nrm@192.168.1.0/24"];
+  assert family.services.openssh.settings.PermitRootLogin == "no";
+  assert family.services.openssh.settings.PubkeyAuthentication;
+  assert !family.services.openssh.settings.PasswordAuthentication && !family.services.openssh.settings.KbdInteractiveAuthentication;
+  assert family.users.users.nrm.openssh.authorizedKeys.keys != [];
   assert family.programs.steam.enable && family.hardware.graphics.enable32Bit && !work.programs.steam.enable;
   assert lib.all (name: builtins.elem name systemPackages) ["retroarch-with-cores" "cemu" "dolphin-emu" "chromium" "pavucontrol" "curl" "podman"];
+  assert family.nixpkgs.config.allowUnfree;
+  assert builtins.elem chromiumWidevine.drvPath (map (pkg: pkg.drvPath) (builtins.filter (pkg: lib.getName pkg == "chromium") family.environment.systemPackages));
   assert family.virtualisation.podman.enable && !family.virtualisation.docker.enable;
   assert family.networking.networkmanager.enable && family.hardware.enableRedistributableFirmware;
   assert builtins.elem "networkmanager" family.users.users.nrm.extraGroups;
