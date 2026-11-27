@@ -216,7 +216,7 @@ zreload
 
 ## Notes
 
-- The `rebuild` function uses hardcoded path `/home/nrm/nixos#hp-ara` - this is intentional for convenience
+- The `rebuild` function uses `/home/nrm/nixos` and selects the host's flake output (`#hp-ara` or `#tortuga`).
 - Both `zreload` and `rebuild` use `exec zsh` which restarts the shell but keeps your history and current directory
 - The deprecation warning about `initExtra` is harmless and expected for home-manager
 - All custom PATH additions now happen at shell startup, so they're always available

@@ -1,6 +1,7 @@
-{...}: {
-  imports = [
-    ./work.nix
-    ./home.nix
-  ];
+{
+  context,
+  lib,
+  ...
+}: {
+  imports = [./home.nix] ++ lib.optional context.work ./work.nix;
 }

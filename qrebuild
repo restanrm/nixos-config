@@ -5,9 +5,11 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+HOSTNAME="$(hostname -s)"
+[ "$HOSTNAME" != laptop-ara ] || HOSTNAME=hp-ara
 
 echo "Testing NixOS configuration (this activates services, not a dry run)..."
 # Keep the installed client compatible with the running systemd during upgrades.
-sudo /run/current-system/sw/bin/nixos-rebuild test --no-reexec --flake "$SCRIPT_DIR#hp-ara" "$@"
+sudo /run/current-system/sw/bin/nixos-rebuild test --no-reexec --flake "$SCRIPT_DIR#$HOSTNAME" "$@"
 
 echo "Test activation complete; the default boot configuration was not changed."

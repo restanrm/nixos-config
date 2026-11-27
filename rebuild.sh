@@ -5,7 +5,8 @@ set -e # Arrête le script en cas d'erreur
 
 # Chemin de la configuration
 CONF_DIR="$HOME/nixos"
-HOSTNAME="hp-ara"
+HOSTNAME="$(hostname -s)"
+[ "$HOSTNAME" != laptop-ara ] || HOSTNAME=hp-ara
 
 # Se déplacer dans le répertoire de config
 pushd "$CONF_DIR" >/dev/null
@@ -25,7 +26,7 @@ echo "󱄅 Reconstruction de NixOS ($HOSTNAME)..."
 OLD_SYSTEM=$(readlink -f /run/current-system)
 
 # Exécution du rebuild avec sudo
-# --flake .#hp-ara utilise le répertoire courant et le nom d'hôte spécifié
+# --flake .#$HOSTNAME sélectionne la configuration de cette machine
 # Si un argument est fourni, il sera utilisé comme label dans le chargeur d'amorçage
 [ -n "$1" ] && export NIXOS_LABEL="$@"
 # Garder le client installé, compatible avec le systemd encore en cours.

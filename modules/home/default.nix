@@ -8,26 +8,25 @@
 }: {
   imports =
     [
-      ./applications
-      ./hyprland
       ./ssh
-      ./noctalia.nix
-      ./bitwarden.nix
-      #./niri.nix
       ./nvim
-      ./ai.nix
-      ./alacritty.nix
       ./development.nix
       ./zsh.nix
-      ./fish.nix
       ./git.nix
       ./zoxide.nix
+    ]
+    ++ lib.optionals ((context.desktop or "hyprland") == "hyprland") [
+      ./applications
+      ./hyprland
+      ./noctalia.nix
+      ./bitwarden.nix
+      ./ai.nix
+      ./alacritty.nix
+      ./fish.nix
       ./dark-theme.nix
       ./openstack-rs.nix
     ]
-    ++ lib.optionals context.work [
-      ./work.nix
-    ];
+    ++ lib.optional context.work ./work.nix;
 
   # Pass context to modules
   _module.args.context = context;

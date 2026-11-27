@@ -34,31 +34,36 @@ with tempfile.TemporaryDirectory(dir=root / ".git") as directory:
         '#!/usr/bin/env bash\nprintf "%s\\0" "$@" > "$ARGS_FILE"\nexit "$MOCK_EXIT"\n'
     )
     sudo.chmod(0o700)
+    hostname = mock_dir / "hostname"
+    hostname.write_text('#!/usr/bin/env bash\nprintf "%s\\n" "$MOCK_HOSTNAME"\n')
+    hostname.chmod(0o700)
     args_file = mock_dir / "args"
     env = os.environ | {
         "PATH": f"{mock_dir}:{os.environ['PATH']}",
         "ARGS_FILE": str(args_file),
         "MOCK_EXIT": "0",
+        "MOCK_HOSTNAME": "laptop-ara",
     }
-    result = subprocess.run(
-        [str(root / "qrebuild"), "--option", "cores", "2"],
-        cwd=mock_dir,
-        env=env,
-        text=True,
-        capture_output=True,
-        check=True,
-    )
-    assert args_file.read_bytes().split(b"\0")[:-1] == [
-        b"/run/current-system/sw/bin/nixos-rebuild",
-        b"test",
-        b"--no-reexec",
-        b"--flake",
-        f"{root}#hp-ara".encode(),
-        b"--option",
-        b"cores",
-        b"2",
-    ]
-    assert "Test activation complete" in result.stdout
+    for hostname, target in (("laptop-ara", "hp-ara"), ("tortuga", "tortuga")):
+        result = subprocess.run(
+            [str(root / "qrebuild"), "--option", "cores", "2"],
+            cwd=mock_dir,
+            env=env | {"MOCK_HOSTNAME": hostname},
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+        assert args_file.read_bytes().split(b"\0")[:-1] == [
+            b"/run/current-system/sw/bin/nixos-rebuild",
+            b"test",
+            b"--no-reexec",
+            b"--flake",
+            f"{root}#{target}".encode(),
+            b"--option",
+            b"cores",
+            b"2",
+        ]
+        assert "Test activation complete" in result.stdout
     result = subprocess.run(
         [str(root / "qrebuild")],
         cwd=mock_dir,

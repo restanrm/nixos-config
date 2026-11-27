@@ -58,5 +58,30 @@
         })
       ];
     };
+
+    nixosConfigurations.tortuga = nixpkgs.lib.nixosSystem {
+      modules = [
+        ./hosts/tortuga
+
+        {nixpkgs.hostPlatform = "x86_64-linux";}
+
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+            context = {
+              work = false;
+              hostType = "desktop";
+              desktop = "gnome";
+              flakeHost = "tortuga";
+            };
+          };
+          home-manager.users.nrm.imports = [./users/nrm ./hosts/tortuga/home.nix];
+          home-manager.backupFileExtension = "hm-back";
+        }
+      ];
+    };
   };
 }

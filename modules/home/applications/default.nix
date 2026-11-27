@@ -31,7 +31,6 @@
     mirrord
     (pkgs.callPackage ./mcli.nix {})
     kubectx
-    pinniped
     terraform
     terragrunt
     k9s
@@ -55,7 +54,6 @@
     id3v2
     yt-dlp
 
-    github-cli
     dig
 
     # install signal application

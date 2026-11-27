@@ -1,8 +1,14 @@
-{pkgs, ...}: {
+{
+  context,
+  lib,
+  pkgs,
+  ...
+}: {
+  home.packages = [pkgs.htop pkgs.evince pkgs.vault];
   # Personal-specific zsh configuration
   programs.zsh = {
     # Personal-specific aliases
-    shellAliases = {
+    shellAliases = lib.optionalAttrs ((context.desktop or "hyprland") == "hyprland") {
       sway = "XKB_DEFAULT_LAYOUT=fr XKB_DEFAULT_VARIANT=bepo sway";
     };
 

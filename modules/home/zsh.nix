@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   config,
   context ? {
@@ -6,7 +7,9 @@
     hostType = "desktop";
   },
   ...
-}: {
+}: let
+  useContainerPdftk = (context.desktop or "hyprland") == "hyprland";
+in {
   imports =
     [
       ./zsh/common.nix
@@ -65,10 +68,11 @@
       }
 
       # PDF utilities
-      function pdftk() {
-        docker run --rm -it -v $PWD:/data --workdir /data restanrm/docker-pdftk pdftk $@
-      }
-
+      ${lib.optionalString useContainerPdftk ''
+        function pdftk() {
+          docker run --rm -it -v $PWD:/data --workdir /data restanrm/docker-pdftk pdftk $@
+        }
+      ''}
       pdfsplit() {
         gs -sDEVICE=pdfwrite -q -dNOPAUSE -dBATCH -sOutputFile="$4" -dFirstPage="$2" -dLastPage="$3" "$1"
       }
@@ -184,7 +188,7 @@
       function rebuild() {
         echo "🔨 Rebuilding NixOS configuration..."
         # Use the installed client rather than re-execing the candidate version.
-        sudo /run/current-system/sw/bin/nixos-rebuild switch --no-reexec --flake /home/nrm/nixos#hp-ara "$@" && {
+        sudo /run/current-system/sw/bin/nixos-rebuild switch --no-reexec --flake /home/nrm/nixos#${context.flakeHost or "hp-ara"} "$@" && {
           echo "✅ Rebuild successful!"
           echo "🔄 Reloading zsh..."
           sleep 1
@@ -195,11 +199,6 @@
   };
 
   # Additional packages needed for shell functions
-  home.packages = with pkgs; [
-    fd
-    ripgrep
-    git
-    docker
-    ghostscript
-  ];
+  home.packages = with pkgs;
+    [fd ripgrep git ghostscript] ++ lib.optional useContainerPdftk docker;
 }

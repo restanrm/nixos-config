@@ -1,13 +1,25 @@
-{pkgs, ...}: {
+{
+  context,
+  pkgs,
+  ...
+}: let
+  identity = {
+    name = "Adrien Raffin";
+    email =
+      if context.work
+      then "adrien.raffin@sekoia.io"
+      else "raffinadrien@gmail.com";
+  };
+in {
   home.packages = with pkgs; [
+    github-cli
     jjui
   ];
 
   programs.git = {
     enable = true;
     settings = {
-      user.name = "Adrien Raffin";
-      user.email = "adrien.raffin@sekoia.io";
+      user = identity;
       init.defaultBranch = "main";
       pull.rebase = true;
       credential = {
@@ -24,10 +36,7 @@
   programs.jujutsu = {
     enable = true;
     settings = {
-      user = {
-        name = "Adrien Raffin";
-        email = "adrien.raffin@sekoia.io";
-      };
+      user = identity;
       remotes.origin = {
         "auto-track-created-bookmarks" = "*";
       };

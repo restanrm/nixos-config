@@ -84,7 +84,8 @@ The following are only loaded when `work=true`:
 
 **Initialization:**
 - Vault and switcher initialization on shell start
-- Work-only tooling such as `azure-cli` with the `vm-repair` extension
+- Work-only tooling: Pinniped and `azure-cli` with the `vm-repair` extension
+- Work SSH aliases, defaults and agent forwarding, plus the work Git and Jujutsu email
 
 ## Personal-Specific Features
 
@@ -98,6 +99,9 @@ The following are only loaded when `work=false`:
 - `SOPS_AGE_RECIPIENTS` - Age encryption recipients for secrets management
 
 ## Adding a New Personal Machine
+
+For a GNOME example, see [`tortuga`](hosts/tortuga/README.md). Set `context.desktop = "gnome"` to use the shared Home
+Manager CLI configuration without the Hyprland desktop modules.
 
 To create a new personal machine configuration:
 
