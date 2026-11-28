@@ -1,10 +1,5 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  -- bootstrap lazy.nvim
-  -- stylua: ignore
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
-end
-vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+-- Use the pinned Nix package even if an old Git checkout is incomplete.
+vim.opt.rtp:prepend(assert(vim.env.NVIM_LAZY_PATH, "Start Neovim with its Home Manager wrapper"))
 
 require("lazy").setup({
   spec = {

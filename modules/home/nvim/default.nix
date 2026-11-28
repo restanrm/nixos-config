@@ -1,9 +1,11 @@
-{...}: {
+{pkgs, ...}: {
   programs.neovim = {
     enable = true;
     defaultEditor = true; # Définit automatiquement EDITOR=nvim
     withRuby = false;
     withPython3 = false;
+    extraWrapperArgs = ["--set" "NVIM_LAZY_PATH" "${pkgs.vimPlugins.lazy-nvim}"];
+    extraPackages = with pkgs; [curl gcc git gnutar nodejs tree-sitter unzip];
   };
 
   home.sessionVariables = {

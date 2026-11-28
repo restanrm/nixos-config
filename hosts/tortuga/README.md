@@ -10,6 +10,9 @@ instance, and `kubectl` is shared. `nrm` also gets age, bat, dig, direnv (with Z
 Pi (`pi`), SOPS, Stern, uv, Viddy, Wget, and Zellij. Curl is already installed system-wide. Podman can run containers without a Docker daemon.
 Unfree packages are allowed on `tortuga`, and Chromium includes Widevine for protected media playback.
 
+Neovim uses the Nix-packaged `lazy.nvim` bootstrap, so an interrupted bootstrap clone does not block startup. LazyVim's
+other plugins still download on first launch; open `nvim` with internet access and let those downloads finish.
+
 ## Gaming
 
 `modules/system/gaming.nix` installs Steam, RetroArch (with NES, SNES, and Game Boy / Game Boy Advance cores),
