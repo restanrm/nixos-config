@@ -76,6 +76,23 @@ fingerprint before accepting it. The live USB used a different host key. Do not 
 Once the key works, run `sudo nixos-rebuild switch --flake ~/nixos#tortuga` to keep SSH enabled across reboots.
 The Gallifrey Zsh theme starts the prompt with `tortuga`, so remote shells are easy to spot.
 
+## Control the screen from laptop-ara
+
+In a terminal in `nrm`'s unlocked GNOME session on `tortuga`, run `gnome-control-center system remote-desktop`.
+GNOME Settings 51 hides the System menu entry when NixOS reports the system service as `linked`; this opens the
+subpage directly. Choose **Desktop Sharing**, enable **Desktop Sharing** and **Remote Control**, and set a separate
+RDP password. Leave **Remote Login** off: desktop sharing
+mirrors the physical primary display and sends keyboard and mouse input to that same session. If autologin left the
+login keyring locked, unlock it when prompted. Keep the credentials out of Git.
+
+After `./rebuild.sh tortuga`, open Remmina on `laptop-ara`. Choose **RDP**, set the server to `192.168.1.133:3389`,
+leave **SSH tunnel** off, and use the Desktop Sharing credentials. Verify the certificate fingerprint against
+`grdctl status` on `tortuga`. This controls the existing GNOME session, not a separate login.
+
+The firewall allows TCP 3389 only from the laptop's current LAN address (`192.168.1.136`). Reserve both LAN addresses
+in DHCP, or update the server address or firewall rule if they change. Do not forward port 3389 on the router.
+Turn off Desktop Sharing on `tortuga` to revoke access.
+
 ## Rebuilding from the laptop
 
 ```sh

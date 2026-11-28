@@ -6,6 +6,10 @@
 
   networking.hostName = "tortuga";
   networking.networkmanager.enable = true;
+  # Allow desktop sharing from laptop-ara's LAN address, not the whole network.
+  networking.firewall.extraCommands = ''
+    iptables -A nixos-fw -s 192.168.1.136/32 -p tcp --dport 3389 -j nixos-fw-accept
+  '';
 
   services.openssh = {
     enable = true;

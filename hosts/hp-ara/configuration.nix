@@ -66,6 +66,7 @@
   # System Packages (Minimal)
   environment.systemPackages = with pkgs; [
     neovim # Gardé en système pour les réparations d'urgence
+    remmina
     wget
     curl
     git
