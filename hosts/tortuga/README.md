@@ -6,8 +6,8 @@ settings without admin access. Home Manager only manages `nrm`.
 
 The work and Hyprland profiles from `hp-ara` are not used. `tortuga` omits Pinniped, Azure CLI, Sekoia services and SSH
 settings. Git and Jujutsu use `Adrien Raffin <raffinadrien@gmail.com>`. Vault stays available for the personal Vault
-instance, and `kubectl` is shared. `nrm` also gets age, bat, dig, jq, mcli, PDFtk, Pi (`pi`), SOPS, Stern, uv, Viddy,
-Wget, and Zellij. Curl is already installed system-wide. Podman can run containers without a Docker daemon.
+instance, and `kubectl` is shared. `nrm` also gets age, bat, dig, direnv (with Zsh integration), jq, mcli, PDFtk,
+Pi (`pi`), SOPS, Stern, uv, Viddy, Wget, and Zellij. Curl is already installed system-wide. Podman can run containers without a Docker daemon.
 Unfree packages are allowed on `tortuga`, and Chromium includes Widevine for protected media playback.
 
 ## Gaming

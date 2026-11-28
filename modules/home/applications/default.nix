@@ -46,7 +46,6 @@
     fd
     openssl
     ansible
-    direnv
     gcc
     bat
 

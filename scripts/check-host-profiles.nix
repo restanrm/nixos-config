@@ -31,6 +31,7 @@ in
   assert work.services.sekoia-agent.enable && !(family.services ? sekoia-agent);
   assert lib.all (name: builtins.elem name (names workHome) && !builtins.elem name (names personalHome)) workOnly;
   assert lib.all (name: builtins.elem name (names personalHome)) personalTools;
+  assert lib.all (hm: builtins.elem "direnv" (names hm) && builtins.elem "direnv" hm.programs.zsh.oh-my-zsh.plugins) [workHome personalHome];
   assert builtins.elem (toString flake.nixosConfigurations.tortuga.pkgs.dig) (map toString personalHome.home.packages);
   assert !(lib.hasInfix "function pdftk()" personalHome.programs.zsh.initContent);
   assert workHome.programs.ssh.settings ? "delivery.sekoia.io";

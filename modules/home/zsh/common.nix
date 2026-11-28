@@ -240,8 +240,9 @@
     '';
   };
 
-  # Install zsh plugins
+  # Tools used from zsh
   home.packages = with pkgs; [
+    direnv
     zoxide
     fzf
     kubectl
