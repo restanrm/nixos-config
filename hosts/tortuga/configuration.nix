@@ -19,7 +19,13 @@
     };
   };
 
-  services.displayManager.gdm.enable = true;
+  services.displayManager = {
+    gdm.enable = true;
+    autoLogin = {
+      enable = true;
+      user = "nrm";
+    };
+  };
   services.desktopManager.gnome.enable = true;
   services.pipewire = {
     enable = true;

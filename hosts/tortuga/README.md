@@ -50,7 +50,9 @@ Keep the repository in `/home/nrm/nixos` on the installed system for the `rebuil
 
 ## After first boot
 
-Keep Ethernet connected until Wi-Fi works. Sign in as `nrm`, open GNOME **Settings → Wi-Fi**, choose the home network,
+GDM automatically signs in as `nrm`. Anyone who can boot `tortuga` can access that session and its files.
+
+Keep Ethernet connected until Wi-Fi works. In GNOME **Settings → Wi-Fi**, choose the home network,
 and enter its password there. NetworkManager saves the connection locally; don't put the Wi-Fi password in this repo.
 Disconnect Ethernet and check that the machine can still reach the internet. Pair Bluetooth devices later in GNOME
 Settings as needed.
