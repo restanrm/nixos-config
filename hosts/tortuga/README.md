@@ -69,3 +69,15 @@ Get the current IP with `hostname -I` and the server fingerprint with
 fingerprint before accepting it. The live USB used a different host key. Do not forward port 22 from the router.
 
 Once the key works, run `sudo nixos-rebuild switch --flake ~/nixos#tortuga` to keep SSH enabled across reboots.
+
+## Rebuilding from the laptop
+
+```sh
+./rebuild.sh                              # Rebuild the current machine
+./rebuild.sh tortuga                      # Deploy to nrm@192.168.1.133
+./rebuild.sh tortuga nrm@<tortuga-ip>      # Override the SSH destination
+```
+
+The remote command sends the current contents of tracked files, including uncommitted edits, to a temporary directory
+on `tortuga`. Add new configuration files with `git add -N` first. The build runs on `tortuga` and prompts for its
+sudo password. It leaves the remote checkout and Nix signature checks unchanged. Desktop notifications are optional.
