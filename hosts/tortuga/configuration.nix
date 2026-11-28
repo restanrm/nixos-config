@@ -21,12 +21,20 @@
 
   services.displayManager = {
     gdm.enable = true;
+    gdm.autoSuspend = false;
     autoLogin = {
       enable = true;
       user = "nrm";
     };
   };
   services.desktopManager.gnome.enable = true;
+  # Keep SSH reachable even when GNOME sees no local input.
+  programs.dconf.profiles.user.databases = [
+    {
+      settings."org/gnome/settings-daemon/plugins/power".sleep-inactive-ac-type = "nothing";
+      lockAll = true;
+    }
+  ];
   services.pipewire = {
     enable = true;
     alsa.enable = true;

@@ -14,6 +14,8 @@ in
   assert builtins.attrNames family.home-manager.users == ["nrm"];
   assert family.services.displayManager.gdm.enable && family.services.desktopManager.gnome.enable;
   assert family.services.displayManager.autoLogin.enable && family.services.displayManager.autoLogin.user == "nrm";
+  assert !family.services.displayManager.gdm.autoSuspend;
+  assert lib.any (db: (db.lockAll or false) && (db.settings."org/gnome/settings-daemon/plugins/power".sleep-inactive-ac-type or null) == "nothing") family.programs.dconf.profiles.user.databases;
   assert family.services.openssh.enable && builtins.elem 22 family.networking.firewall.allowedTCPPorts;
   assert family.services.openssh.settings.AllowUsers == ["nrm@192.168.1.0/24"];
   assert family.services.openssh.settings.PermitRootLogin == "no";

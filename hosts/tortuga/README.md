@@ -51,6 +51,8 @@ Keep the repository in `/home/nrm/nixos` on the installed system for the `rebuil
 ## After first boot
 
 GDM automatically signs in as `nrm`. Anyone who can boot `tortuga` can access that session and its files.
+Automatic suspend is disabled on AC power in GNOME and at the GDM login screen so SSH stays reachable.
+Screen blanking, locking and manual suspend are unchanged.
 
 Keep Ethernet connected until Wi-Fi works. In GNOME **Settings → Wi-Fi**, choose the home network,
 and enter its password there. NetworkManager saves the connection locally; don't put the Wi-Fi password in this repo.
