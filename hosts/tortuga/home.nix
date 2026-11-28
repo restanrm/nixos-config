@@ -1,6 +1,8 @@
 {pkgs, ...}: {
   imports = [../../modules/home/alacritty.nix];
 
+  programs.zsh.oh-my-zsh.theme = "gallifrey";
+
   home.packages = with pkgs; [
     age
     bat

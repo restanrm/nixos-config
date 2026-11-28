@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: {
   # Shared zsh configuration across all contexts
@@ -26,7 +27,7 @@
         "kube-ps1"
         "direnv"
       ];
-      theme = "robbyrussell";
+      theme = lib.mkDefault "robbyrussell";
     };
 
     # Common environment variables

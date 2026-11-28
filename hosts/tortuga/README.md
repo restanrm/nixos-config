@@ -69,6 +69,7 @@ Get the current IP with `hostname -I` and the server fingerprint with
 fingerprint before accepting it. The live USB used a different host key. Do not forward port 22 from the router.
 
 Once the key works, run `sudo nixos-rebuild switch --flake ~/nixos#tortuga` to keep SSH enabled across reboots.
+The Gallifrey Zsh theme starts the prompt with `tortuga`, so remote shells are easy to spot.
 
 ## Rebuilding from the laptop
 
